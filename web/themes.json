@@ -2,12 +2,85 @@
   "themes": {
     "animals": ["cat", "dog", "lion", "tiger", "elephant", "giraffe", "zebra", "monkey", "panda", "kangaroo"],
     "fruits": ["apple", "banana", "orange", "mango", "grape", "pear", "peach", "kiwi", "lemon", "melon"],
-    "planets": ["mercury","venus","earth","mars","jupiter","saturn","uranus","neptune","pluto"]
+    "planets": ["mercury","venus","earth","mars","jupiter","saturn","uranus","neptune","pluto"],
+    "ocean": ["ocean", "wave", "tide", "coral", "reef", "shark", "dolphin", "whale", "seal", "kelp"],
+    "space": ["rocket", "astronaut", "galaxy", "meteor", "comet", "orbit", "telescope", "satellite", "nebula", "star"],
+    "transport": ["car", "truck", "train", "plane", "boat", "bike", "bus", "subway", "scooter", "taxi"],
+    "sports": ["soccer", "tennis", "basketball", "baseball", "golf", "boxing", "swimming", "cycling", "skiing", "hockey"],
+    "school": ["teacher", "student", "classroom", "pencil", "notebook", "science", "history", "math", "reading", "library"],
+    "music": ["guitar", "piano", "drum", "violin", "trumpet", "melody", "rhythm", "chorus", "band", "song"],
+    "nature": ["forest", "river", "mountain", "valley", "meadow", "rain", "cloud", "storm", "sunshine", "rainbow"],
+    "technology": ["computer", "keyboard", "monitor", "internet", "software", "robot", "camera", "battery", "signal", "server"],
+    "mystery": ["secret", "clue", "puzzle", "detective", "alibi", "witness", "motive", "suspect", "evidence", "case"],
+    "cooking": ["recipe", "kitchen", "stove", "spoon", "mixing", "baking", "simmer", "season", "chop", "taste"]
+  },
+  "crosswordThemes": {
+    "animals": [
+      {"answer":"cat","clue":"Small pet that purrs"},
+      {"answer":"dog","clue":"Loyal pet that barks"},
+      {"answer":"lion","clue":"Big cat with a mane"},
+      {"answer":"zebra","clue":"Striped African animal"},
+      {"answer":"panda","clue":"Black and white bear"},
+      {"answer":"whale","clue":"Huge ocean mammal"},
+      {"answer":"eagle","clue":"Bird with sharp eyesight"},
+      {"answer":"mouse","clue":"Tiny creature that squeaks"}
+    ],
+    "space": [
+      {"answer":"planet","clue":"World that orbits a star"},
+      {"answer":"rocket","clue":"Vehicle for space travel"},
+      {"answer":"galaxy","clue":"Huge system of stars"},
+      {"answer":"comet","clue":"Icy body with a tail"},
+      {"answer":"orbit","clue":"Path around a planet or star"},
+      {"answer":"asteroid","clue":"Rocky space object"}
+    ],
+    "school": [
+      {"answer":"teacher","clue":"Leads a class"},
+      {"answer":"student","clue":"Learner in school"},
+      {"answer":"pencil","clue":"Tool for writing"},
+      {"answer":"library","clue":"Place full of books"},
+      {"answer":"recess","clue":"Break time for play"},
+      {"answer":"science","clue":"Study of the world"}
+    ],
+    "food": [
+      {"answer":"apple","clue":"Crisp red or green fruit"},
+      {"answer":"bread","clue":"Baked loaf"},
+      {"answer":"cheese","clue":"Dairy food often yellow"},
+      {"answer":"pizza","clue":"Round pie with toppings"},
+      {"answer":"salad","clue":"Mixed greens and veggies"},
+      {"answer":"soup","clue":"Warm bowl of broth"}
+    ]
+  },
+  "riddleThemes": {
+    "animals": [
+      {"riddle":"I purr and nap, and I chase a mouse. What am I?","answer":"Cat"},
+      {"riddle":"I bark and wag my tail. What am I?","answer":"Dog"},
+      {"riddle":"I have stripes and live in Africa. What am I?","answer":"Zebra"},
+      {"riddle":"I swing in trees and love bananas. What am I?","answer":"Monkey"}
+    ],
+    "nature": [
+      {"riddle":"I fall from the sky and make puddles. What am I?","answer":"Rain"},
+      {"riddle":"I shine in the day and warm the Earth. What am I?","answer":"Sun"},
+      {"riddle":"I float in the sky and can be fluffy. What am I?","answer":"Cloud"},
+      {"riddle":"I am tall, green, and have leaves. What am I?","answer":"Tree"}
+    ],
+    "home": [
+      {"riddle":"I keep food cold and have a door. What am I?","answer":"Fridge"},
+      {"riddle":"I light up a room when it is dark. What am I?","answer":"Lamp"},
+      {"riddle":"I am soft and you sleep on me. What am I?","answer":"Pillow"},
+      {"riddle":"I have pages and tell stories. What am I?","answer":"Book"}
+    ],
+    "school": [
+      {"riddle":"I am used to write, and I have an eraser. What am I?","answer":"Pencil"},
+      {"riddle":"I hold your notes and homework. What am I?","answer":"Notebook"},
+      {"riddle":"I ring to start and end class. What am I?","answer":"Bell"},
+      {"riddle":"I am where you find many books. What am I?","answer":"Library"}
+    ]
   },
   "agePresets": {
-    "5-7": {"size":8, "teacher":true, "maxWords":6},
-    "8-10": {"size":12, "teacher":true, "maxWords":8},
-    "11-13": {"size":14, "teacher":false, "maxWords":10},
-    "14+": {"size":16, "teacher":false, "maxWords":12}
+    "3-6": {"size":7, "teacher":true, "maxWords":5},
+    "6-8": {"size":9, "teacher":true, "maxWords":7},
+    "9-12": {"size":12, "teacher":true, "maxWords":9},
+    "13-17": {"size":14, "teacher":false, "maxWords":12},
+    "Adults": {"size":16, "teacher":false, "maxWords":14}
   }
 }

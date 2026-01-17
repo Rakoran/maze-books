@@ -3,35 +3,35 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>Themed Wordsearch</title>
+  <title>Themed Crossword</title>
   <link rel="stylesheet" href="styles.css">
-  </head>
+</head>
 <body>
   <main>
     <nav class="topnav">
-      <a class="active" href="index.html">Wordsearch</a>
-      <a href="crossword.html">Crossword</a>
+      <a href="index.html">Wordsearch</a>
+      <a class="active" href="crossword.html">Crossword</a>
       <a href="maze.html">Maze</a>
       <a href="sudoku.html">Sudoku</a>
       <a href="patterns.html">Patterns</a>
       <a href="sorting.html">Sorting</a>
       <a href="riddles.html">Riddles</a>
     </nav>
-    <h1>Themed Wordsearch</h1>
+    <h1>Themed Crossword</h1>
     <form id="controls">
       <label>Theme
         <select id="themeSelect"></select>
       </label>
       <label>Size
-        <input id="size" type="number" min="6" max="40" value="12">
+        <input id="size" type="number" min="7" max="25" value="13">
       </label>
       <label>Age
         <select id="ageSelect">
           <option value="">(none)</option>
         </select>
       </label>
-      <label>Custom words (comma separated)
-        <input id="custom" placeholder="cat,dog,fox">
+      <label>Custom words (one per line, optional clue after "-")
+        <textarea id="custom" rows="4" placeholder="cat - Purring pet&#10;river - Long flowing water"></textarea>
       </label>
       <label>Background
         <select id="bgSelect">
@@ -42,12 +42,6 @@
           <option value="#f1f6ff">Cool Mist</option>
         </select>
       </label>
-      <label style="align-self:center">
-        <input id="showGridLines" type="checkbox" checked> Show grid lines
-      </label>
-      <label style="align-self:center">
-        <input id="teacherMode" type="checkbox"> No backward words
-      </label>
       <div class="buttons">
         <button type="button" id="generate">Generate</button>
         <button type="button" id="toggleAnswers">Show Answers</button>
@@ -57,9 +51,18 @@
 
     <section id="output">
       <div id="gridWrap"></div>
-      <div id="wordListWrap"></div>
+      <div class="clues">
+        <div>
+          <h3>Across</h3>
+          <ol id="acrossList"></ol>
+        </div>
+        <div>
+          <h3>Down</h3>
+          <ol id="downList"></ol>
+        </div>
+      </div>
     </section>
   </main>
-  <script src="app.js"></script>
+  <script src="crossword.js"></script>
 </body>
 </html>
