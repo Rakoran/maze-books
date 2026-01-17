@@ -16,7 +16,7 @@ table.grid.no-lines td{border-color:transparent}
 #gridWrap td.answer{background:#ffea8a}
 #wordListWrap{margin-top:8px}
 .controls-row{display:flex;gap:12px}
-.topnav{display:flex;gap:10px;margin:0 0 12px}
+.topnav{display:flex;flex-wrap:wrap;gap:10px;row-gap:8px;margin:0 0 12px}
 .topnav a{color:#111;text-decoration:none;padding:6px 10px;border-radius:6px;background:#e9e9ec}
 .topnav a.active{background:#111;color:#fff}
 canvas#mazeCanvas{display:block;margin:8px 0;max-width:100%}
@@ -39,6 +39,52 @@ table.grid.patterns td.missing{color:#999}
 .riddle-list{margin:8px 0;padding-left:20px}
 .riddle-q{font-weight:700;margin-bottom:4px}
 .riddle-a{margin-bottom:12px}
+
+.diff-wrap{display:grid;grid-template-columns:1fr 1fr;gap:16px;align-items:start}
+.diff-panel{display:flex;flex-direction:column;gap:6px}
+.diff-label{font-weight:700}
+canvas.diff-canvas{width:100%;height:auto;border:2px solid #111;background:#fff}
+
+.crypto-list{margin:8px 0;padding-left:20px}
+.crypto-q{font-weight:700;margin-bottom:4px;letter-spacing:1px}
+.crypto-a{margin-bottom:12px}
+.crypto-hints{margin-top:8px}
+.crypto-hints-title{font-weight:700}
+.crypto-hints-line{font-size:15px;margin-top:4px}
+
+.ladder-list{margin:8px 0;padding-left:20px}
+.ladder-word{display:inline-block;font-weight:700;letter-spacing:2px}
+.ladder-blank{color:#999}
+
+table.logic-grid{border-collapse:collapse;margin:8px 0}
+table.logic-grid th,table.logic-grid td{border:1px solid #777;padding:6px 8px;text-align:center}
+table.logic-grid th{background:#f0f0f0;font-weight:700}
+.logic-title{font-weight:700;margin-top:8px}
+.logic-clues{margin-top:8px}
+.logic-clues-title{font-weight:700}
+
+canvas#ispyCanvas{display:block;margin:8px 0;max-width:100%}
+.ispy-list{margin:8px 0;padding-left:20px}
+
+table.grid.kakuro td{width:var(--cell);height:var(--cell)}
+.kakuro-block{background:#111;position:relative}
+.kakuro-cell{background:#fff;font-weight:700;font-size:16px;text-align:center}
+.kakuro-diag{position:absolute;inset:0}
+.kakuro-diag:before{content:'';position:absolute;left:0;bottom:0;right:0;top:0;border-top:1px solid #fff;transform:skewY(-45deg)}
+.kakuro-down{position:absolute;left:4px;top:4px;font-size:10px;color:#fff}
+.kakuro-right{position:absolute;right:4px;bottom:4px;font-size:10px;color:#fff}
+
+table.grid.battleships th,table.grid.battleships td{width:var(--cell);height:var(--cell);text-align:center;font-weight:700}
+table.grid.battleships th{background:#f0f0f0}
+
+table.grid.kenken td{width:var(--cell);height:var(--cell);text-align:center;font-weight:700;position:relative}
+.kenken-label{position:absolute;left:2px;top:2px;font-size:10px;font-weight:700}
+
+table.grid.nonogram th,table.grid.nonogram td{width:var(--cell);height:var(--cell);text-align:center;font-weight:700}
+table.grid.nonogram th{background:#f0f0f0;font-size:12px}
+table.grid.nonogram td.filled{background:#111}
+
+table.grid.memory td{width:var(--cell);height:var(--cell);text-align:center;font-weight:700}
 
 table.grid.crossword td{position:relative;font-weight:600;border:3px solid #111;background:#fff}
 table.grid.crossword td.block{background:transparent;border:none}
