@@ -19,6 +19,12 @@ table.grid.no-lines td{border-color:transparent}
 .topnav{display:flex;flex-wrap:wrap;gap:10px;row-gap:8px;margin:0 0 12px}
 .topnav a{color:#111;text-decoration:none;padding:6px 10px;border-radius:6px;background:#e9e9ec}
 .topnav a.active{background:#111;color:#fff}
+
+.howto{margin-top:16px;padding:12px;border:1px solid #ddd;border-radius:8px;background:#fff}
+.howto h2{margin:0 0 8px;font-size:18px}
+.howto ul{margin:0;padding-left:18px}
+.howto-intro{margin:0 0 8px;color:#333}
+.howto-subtitle{margin-top:10px;font-weight:700}
 canvas#mazeCanvas{display:block;margin:8px 0;max-width:100%}
 
 table.grid.sudoku td{font-size:18px;border:1px solid #777}
@@ -85,6 +91,13 @@ table.grid.nonogram th{background:#f0f0f0;font-size:12px}
 table.grid.nonogram td.filled{background:#111}
 
 table.grid.memory td{width:var(--cell);height:var(--cell);text-align:center;font-weight:700}
+
+table.grid.colorby td{width:var(--cell);height:var(--cell);text-align:center;font-weight:700}
+.colorby-legend{display:flex;flex-wrap:wrap;gap:12px;margin-top:10px}
+.colorby-item{display:flex;align-items:center;gap:6px}
+.colorby-swatch{width:16px;height:16px;border:1px solid #111;display:inline-block}
+canvas#colorbyCanvas{display:block;margin:8px 0;max-width:100%}
+input[type="file"]{padding:6px 0}
 
 table.grid.crossword td{position:relative;font-weight:600;border:3px solid #111;background:#fff}
 table.grid.crossword td.block{background:transparent;border:none}

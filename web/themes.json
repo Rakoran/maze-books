@@ -48,6 +48,22 @@
       {"answer":"pizza","clue":"Round pie with toppings"},
       {"answer":"salad","clue":"Mixed greens and veggies"},
       {"answer":"soup","clue":"Warm bowl of broth"}
+    ],
+    "pets": [
+      {"answer":"cat","clue":"Small pet that purrs"},
+      {"answer":"dog","clue":"Loyal pet that barks"},
+      {"answer":"fish","clue":"Pet that swims in a tank"},
+      {"answer":"parrot","clue":"Pet bird that can mimic"},
+      {"answer":"turtle","clue":"Pet with a hard shell"},
+      {"answer":"hamster","clue":"Small pet that runs on a wheel"}
+    ],
+    "dinosaurs": [
+      {"answer":"trex","clue":"Famous big meat-eater"},
+      {"answer":"raptor","clue":"Fast, sharp-clawed dino"},
+      {"answer":"triceratops","clue":"Dino with three horns"},
+      {"answer":"stegosaurus","clue":"Dino with back plates"},
+      {"answer":"fossil","clue":"Ancient remains in rock"},
+      {"answer":"jurassic","clue":"Dinosaur time period"}
     ]
   },
   "riddleThemes": {
@@ -74,6 +90,12 @@
       {"riddle":"I hold your notes and homework. What am I?","answer":"Notebook"},
       {"riddle":"I ring to start and end class. What am I?","answer":"Bell"},
       {"riddle":"I am where you find many books. What am I?","answer":"Library"}
+    ],
+    "pets": [
+      {"riddle":"I have whiskers and love to nap. What am I?","answer":"Cat"},
+      {"riddle":"I bark and like to play fetch. What am I?","answer":"Dog"},
+      {"riddle":"I swim in a bowl and blow bubbles. What am I?","answer":"Fish"},
+      {"riddle":"I carry my home on my back. What am I?","answer":"Turtle"}
     ]
   },
   "cryptogramThemes": {
@@ -106,6 +128,12 @@
       "SMALL STEPS LEAD TO BIG GOALS",
       "BE CURIOUS AND KEEP LEARNING",
       "MISTAKES HELP US GROW"
+    ],
+    "pets": [
+      "PETS BRING JOY TO FAMILIES",
+      "A DOG IS A LOYAL FRIEND",
+      "CATS LOVE SUNNY WINDOWS",
+      "TURTLES MOVE SLOW AND STEADY"
     ]
   },
   "ladderThemes": {
@@ -120,6 +148,10 @@
     ],
     "space": [
       "star","scar","seat","seal","seam","beam","bear","pear","near","gear","fear","feat","heat","heap","help","helm","held","hero"
+    ],
+    "pets": [
+      "cat","cot","cog","dog","dot","hot","hat","bat","bad","bed","bet",
+      "fish","dish","dash","cash","case","cane","lane","late","lite","site"
     ]
   },
   "logicThemes": {
@@ -191,11 +223,12 @@
     "space": ["star","planet","rocket","moon"],
     "forest": ["tree","leaf","mushroom","acorn"],
     "garden": ["flower","bee","butterfly","ladybug"],
-    "city": ["car","bus","bike","sign"]
+    "city": ["car","bus","bike","sign"],
+    "pets": ["cat","dog","fish","turtle"]
   },
   "agePresets": {
-    "3-6": {"size":7, "teacher":true, "maxWords":5},
-    "6-8": {"size":9, "teacher":true, "maxWords":7},
+    "3-6": {"size":9, "teacher":true, "maxWords":5},
+    "6-8": {"size":11, "teacher":true, "maxWords":7},
     "9-12": {"size":12, "teacher":true, "maxWords":9},
     "13-17": {"size":14, "teacher":false, "maxWords":12},
     "Adults": {"size":16, "teacher":false, "maxWords":14}

@@ -1,18 +1,28 @@
 {
   "themes": {
-    "animals": ["cat", "dog", "lion", "tiger", "elephant", "giraffe", "zebra", "monkey", "panda", "kangaroo"],
-    "fruits": ["apple", "banana", "orange", "mango", "grape", "pear", "peach", "kiwi", "lemon", "melon"],
+    "animals": ["cat", "dog", "lion", "tiger", "elephant", "giraffe", "zebra", "monkey", "panda", "kangaroo", "bear", "fox", "wolf", "rabbit", "deer", "otter", "raccoon", "hippo", "rhino", "camel"],
+    "pets": ["cat", "dog", "puppy", "kitten", "fish", "hamster", "parrot", "turtle", "rabbit", "goldfish", "gerbil", "lizard", "guinea", "canary", "gecko"],
+    "farm": ["cow", "pig", "sheep", "goat", "horse", "hen", "rooster", "chick", "duck", "goose", "barn", "tractor", "hay", "field", "fence"],
+    "jungle": ["jaguar", "toucan", "sloth", "gorilla", "panther", "anaconda", "parrot", "tiger", "monkey", "vines", "canopy", "rain", "river", "frog", "leaf"],
+    "dinosaurs": ["trex", "triceratops", "raptor", "stegosaurus", "brontosaurus", "pterodactyl", "spinosaurus", "ankylosaurus", "iguanodon", "fossil", "bones", "jurassic", "carnivore", "herbivore"],
+    "fruits": ["apple", "banana", "orange", "mango", "grape", "pear", "peach", "kiwi", "lemon", "melon", "plum", "berry", "cherry", "papaya", "guava"],
+    "vegetables": ["carrot", "broccoli", "pepper", "tomato", "potato", "onion", "garlic", "lettuce", "cabbage", "spinach", "corn", "pea", "bean", "celery", "cucumber"],
     "planets": ["mercury","venus","earth","mars","jupiter","saturn","uranus","neptune","pluto"],
-    "ocean": ["ocean", "wave", "tide", "coral", "reef", "shark", "dolphin", "whale", "seal", "kelp"],
-    "space": ["rocket", "astronaut", "galaxy", "meteor", "comet", "orbit", "telescope", "satellite", "nebula", "star"],
-    "transport": ["car", "truck", "train", "plane", "boat", "bike", "bus", "subway", "scooter", "taxi"],
-    "sports": ["soccer", "tennis", "basketball", "baseball", "golf", "boxing", "swimming", "cycling", "skiing", "hockey"],
-    "school": ["teacher", "student", "classroom", "pencil", "notebook", "science", "history", "math", "reading", "library"],
-    "music": ["guitar", "piano", "drum", "violin", "trumpet", "melody", "rhythm", "chorus", "band", "song"],
-    "nature": ["forest", "river", "mountain", "valley", "meadow", "rain", "cloud", "storm", "sunshine", "rainbow"],
-    "technology": ["computer", "keyboard", "monitor", "internet", "software", "robot", "camera", "battery", "signal", "server"],
-    "mystery": ["secret", "clue", "puzzle", "detective", "alibi", "witness", "motive", "suspect", "evidence", "case"],
-    "cooking": ["recipe", "kitchen", "stove", "spoon", "mixing", "baking", "simmer", "season", "chop", "taste"]
+    "ocean": ["ocean", "wave", "tide", "coral", "reef", "shark", "dolphin", "whale", "seal", "kelp", "seahorse", "octopus", "crab", "turtle", "stingray"],
+    "space": ["rocket", "astronaut", "galaxy", "meteor", "comet", "orbit", "telescope", "satellite", "nebula", "star", "moon", "planet", "asteroid", "launch", "spacesuit"],
+    "transport": ["car", "truck", "train", "plane", "boat", "bike", "bus", "subway", "scooter", "taxi", "van", "ship", "ferry", "tram", "helicopter"],
+    "sports": ["soccer", "tennis", "basketball", "baseball", "golf", "boxing", "swimming", "cycling", "skiing", "hockey", "skating", "running", "volleyball", "rugby", "archery"],
+    "school": ["teacher", "student", "classroom", "pencil", "notebook", "science", "history", "math", "reading", "library", "backpack", "marker", "crayon", "homework", "recess"],
+    "jobs": ["doctor", "nurse", "teacher", "pilot", "chef", "farmer", "police", "firefighter", "artist", "builder", "driver", "dentist", "engineer", "baker", "vet"],
+    "music": ["guitar", "piano", "drum", "violin", "trumpet", "melody", "rhythm", "chorus", "band", "song", "flute", "cello", "singer", "concert", "speaker"],
+    "nature": ["forest", "river", "mountain", "valley", "meadow", "rain", "cloud", "storm", "sunshine", "rainbow", "canyon", "desert", "island", "waterfall", "breeze"],
+    "weather": ["sun", "rain", "snow", "wind", "storm", "cloud", "thunder", "lightning", "fog", "hail", "icy", "breeze", "drizzle", "forecast"],
+    "colors": ["red", "blue", "green", "yellow", "orange", "purple", "pink", "brown", "black", "white", "silver", "gold"],
+    "shapes": ["circle", "square", "triangle", "rectangle", "oval", "diamond", "hexagon", "star", "heart"],
+    "technology": ["computer", "keyboard", "monitor", "internet", "software", "robot", "camera", "battery", "signal", "server", "tablet", "charger", "browser", "pixel", "screen"],
+    "mystery": ["secret", "clue", "puzzle", "detective", "alibi", "witness", "motive", "suspect", "evidence", "case", "trail", "cipher", "shadow", "investigate"],
+    "cooking": ["recipe", "kitchen", "stove", "spoon", "mixing", "baking", "simmer", "season", "chop", "taste", "whisk", "bowl", "oven", "skillet", "spice"],
+    "holidays": ["birthday", "candle", "balloon", "party", "gift", "winter", "summer", "parade", "fireworks", "festival", "costume", "holiday", "family"]
   },
   "crosswordThemes": {
     "animals": [
@@ -48,6 +58,22 @@
       {"answer":"pizza","clue":"Round pie with toppings"},
       {"answer":"salad","clue":"Mixed greens and veggies"},
       {"answer":"soup","clue":"Warm bowl of broth"}
+    ],
+    "pets": [
+      {"answer":"cat","clue":"Small pet that purrs"},
+      {"answer":"dog","clue":"Loyal pet that barks"},
+      {"answer":"fish","clue":"Pet that swims in a tank"},
+      {"answer":"parrot","clue":"Pet bird that can mimic"},
+      {"answer":"turtle","clue":"Pet with a hard shell"},
+      {"answer":"hamster","clue":"Small pet that runs on a wheel"}
+    ],
+    "dinosaurs": [
+      {"answer":"trex","clue":"Famous big meat-eater"},
+      {"answer":"raptor","clue":"Fast, sharp-clawed dino"},
+      {"answer":"triceratops","clue":"Dino with three horns"},
+      {"answer":"stegosaurus","clue":"Dino with back plates"},
+      {"answer":"fossil","clue":"Ancient remains in rock"},
+      {"answer":"jurassic","clue":"Dinosaur time period"}
     ]
   },
   "riddleThemes": {
@@ -74,6 +100,12 @@
       {"riddle":"I hold your notes and homework. What am I?","answer":"Notebook"},
       {"riddle":"I ring to start and end class. What am I?","answer":"Bell"},
       {"riddle":"I am where you find many books. What am I?","answer":"Library"}
+    ],
+    "pets": [
+      {"riddle":"I have whiskers and love to nap. What am I?","answer":"Cat"},
+      {"riddle":"I bark and like to play fetch. What am I?","answer":"Dog"},
+      {"riddle":"I swim in a bowl and blow bubbles. What am I?","answer":"Fish"},
+      {"riddle":"I carry my home on my back. What am I?","answer":"Turtle"}
     ]
   },
   "cryptogramThemes": {
@@ -106,6 +138,12 @@
       "SMALL STEPS LEAD TO BIG GOALS",
       "BE CURIOUS AND KEEP LEARNING",
       "MISTAKES HELP US GROW"
+    ],
+    "pets": [
+      "PETS BRING JOY TO FAMILIES",
+      "A DOG IS A LOYAL FRIEND",
+      "CATS LOVE SUNNY WINDOWS",
+      "TURTLES MOVE SLOW AND STEADY"
     ]
   },
   "ladderThemes": {
@@ -120,6 +158,10 @@
     ],
     "space": [
       "star","scar","seat","seal","seam","beam","bear","pear","near","gear","fear","feat","heat","heap","help","helm","held","hero"
+    ],
+    "pets": [
+      "cat","cot","cog","dog","dot","hot","hat","bat","bad","bed","bet",
+      "fish","dish","dash","cash","case","cane","lane","late","lite","site"
     ]
   },
   "logicThemes": {
@@ -191,11 +233,12 @@
     "space": ["star","planet","rocket","moon"],
     "forest": ["tree","leaf","mushroom","acorn"],
     "garden": ["flower","bee","butterfly","ladybug"],
-    "city": ["car","bus","bike","sign"]
+    "city": ["car","bus","bike","sign"],
+    "pets": ["cat","dog","fish","turtle"]
   },
   "agePresets": {
-    "3-6": {"size":7, "teacher":true, "maxWords":5},
-    "6-8": {"size":9, "teacher":true, "maxWords":7},
+    "3-6": {"size":9, "teacher":true, "maxWords":5},
+    "6-8": {"size":11, "teacher":true, "maxWords":7},
     "9-12": {"size":12, "teacher":true, "maxWords":9},
     "13-17": {"size":14, "teacher":false, "maxWords":12},
     "Adults": {"size":16, "teacher":false, "maxWords":14}

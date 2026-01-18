@@ -64,6 +64,15 @@
     return count;
   }
 
+  function countInnerIntersections(grid, word, startR, startC, dr, dc){
+    let count = 0;
+    for(let i=1;i<word.length-1;i++){
+      const rr = startR + dr*i, cc = startC + dc*i;
+      if(grid[rr][cc]) count++;
+    }
+    return count;
+  }
+
   function generate(entries, size){
     const words = entries.map(e=>({answer:e.answer.toUpperCase().replace(/[^A-Z]/g,''), clue:e.clue || ''}))
       .filter(e=>e.answer.length>1);
@@ -95,9 +104,10 @@
                 const sc = c - dir.dc * i;
                 if(!canPlace(grid, entry.answer, sr, sc, dir.dr, dir.dc)) continue;
                 const hits = countIntersections(grid, entry.answer, sr, sc, dir.dr, dir.dc);
-                if(hits < 1) continue;
-                if(!best || hits > best.hits){
-                  best = {r:sr, c:sc, dr:dir.dr, dc:dir.dc, hits};
+                const innerHits = (entry.answer.length <= 2) ? hits : countInnerIntersections(grid, entry.answer, sr, sc, dir.dr, dir.dc);
+                if(innerHits < 1) continue;
+                if(!best || innerHits > best.hits){
+                  best = {r:sr, c:sc, dr:dir.dr, dc:dir.dc, hits: innerHits};
                 }
               }
             }

@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>Nonograms</title>
+  <title>Color by Number</title>
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -24,15 +24,22 @@
       <a href="kakuro.html">Kakuro</a>
       <a href="battleships.html">Battleships</a>
       <a href="kenken.html">KenKen</a>
-      <a class="active" href="nonograms.html">Nonograms</a>
-          <a href="memory.html">Memory</a>`n          <a href="colorby.html">Color by Number</a>`n    </nav>
-    <h1>Nonograms</h1>
+      <a href="nonograms.html">Nonograms</a>
+      <a href="memory.html">Memory</a>
+      <a class="active" href="colorby.html">Color by Number</a>
+    </nav>
+    <h1>Color by Number</h1>
     <form id="controls">
+      <label>Upload image
+        <input id="imageInput" type="file" accept="image/*">
+      </label>
       <label>Theme
-        <select id="themeSelect">`n          <option value="">(none)</option>`n        </select>
+        <select id="themeSelect">
+          <option value="">(none)</option>
+        </select>
       </label>
       <label>Size
-        <input id="size" type="number" min="5" max="12" value="8">
+        <input id="size" type="number" min="6" max="20" value="10">
       </label>
       <label>Age
         <select id="ageSelect">
@@ -55,17 +62,18 @@
         <button type="button" id="generate">Generate</button>
         <button type="button" id="toggleAnswers">Show Answers</button>
         <button type="button" id="savePng">Save PNG</button>
+        <button type="button" id="savePdf">Save PDF</button>
       </div>
     </form>
 
     <section id="output">
-      <div id="gridWrap"></div>
+      <div id="gridWrap">
+        <canvas id="colorbyCanvas"></canvas>
+      </div>
+      <div id="legendWrap"></div>
     </section>
   </main>
-  <script src="nonograms.js"></script>
-  <script src="howto.js"></script>`n</body>
+  <script src="colorby.js"></script>
+  <script src="howto.js"></script>
+</body>
 </html>
-
-
-
-
