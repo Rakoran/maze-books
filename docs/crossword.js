@@ -73,14 +73,20 @@
     return count;
   }
 
+  function computeGridSize(words){
+    const longest = Math.max(6, ...words.map(w=>w.answer.length));
+    const byCount = Math.ceil(Math.sqrt(words.length)) * 4;
+    return Math.max(10, longest + 2, byCount);
+  }
+
   function generate(entries, size){
     const words = entries.map(e=>({answer:e.answer.toUpperCase().replace(/[^A-Z]/g,''), clue:e.clue || ''}))
       .filter(e=>e.answer.length>1);
     if(words.length===0) return null;
-    const n = size || Math.max(10, ...words.map(w=>w.answer.length));
+    const n = size || computeGridSize(words);
     let bestResult = null;
 
-    for(let attempt=0; attempt<25; attempt++){
+    for(let attempt=0; attempt<30; attempt++){
       const grid = makeEmptyGrid(n);
       const placements = [];
       const order = shuffle(words.slice()).sort((a,b)=>b.answer.length-a.answer.length);
@@ -113,6 +119,44 @@
             }
           }
         }
+        // fallback: allow end intersections
+        if(!best){
+          for(let r=0;r<n;r++){
+            for(let c=0;c<n;c++){
+              const cell = grid[r][c];
+              if(!cell) continue;
+              for(let i=0;i<entry.answer.length;i++){
+                if(entry.answer[i] !== cell) continue;
+                for(const dir of DIRS){
+                  const sr = r - dir.dr * i;
+                  const sc = c - dir.dc * i;
+                  if(!canPlace(grid, entry.answer, sr, sc, dir.dr, dir.dc)) continue;
+                  const hits = countIntersections(grid, entry.answer, sr, sc, dir.dr, dir.dc);
+                  if(hits < 1) continue;
+                  best = {r:sr, c:sc, dr:dir.dr, dc:dir.dc, hits};
+                  break;
+                }
+                if(best) break;
+              }
+              if(best) break;
+            }
+            if(best) break;
+          }
+        }
+        // final fallback: allow non-intersecting placement
+        if(!best){
+          for(let r=0;r<n;r++){
+            for(let c=0;c<n;c++){
+              for(const dir of DIRS){
+                if(!canPlace(grid, entry.answer, r, c, dir.dr, dir.dc)) continue;
+                best = {r, c, dr:dir.dr, dc:dir.dc, hits:0};
+                break;
+              }
+              if(best) break;
+            }
+            if(best) break;
+          }
+        }
         if(best){
           placeWord(grid, entry.answer, best.r, best.c, best.dr, best.dc);
           placements.push({answer:entry.answer, clue:entry.clue, r:best.r, c:best.c, dr:best.dr, dc:best.dc});
@@ -126,6 +170,23 @@
     }
 
     return bestResult;
+  }
+
+  function generateWithResize(entries){
+    const words = entries.map(e=>({answer:e.answer.toUpperCase().replace(/[^A-Z]/g,''), clue:e.clue || ''}))
+      .filter(e=>e.answer.length>1);
+    if(words.length===0) return null;
+    let size = computeGridSize(words);
+    let best = null;
+    for(let i=0;i<4;i++){
+      const attempt = generate(entries, size);
+      if(attempt && (!best || attempt.placements.length > best.placements.length)){
+        best = attempt;
+      }
+      if(best && best.placements.length === words.length) break;
+      size += 2;
+    }
+    return best;
   }
 
   function computeNumbers(grid){
@@ -236,7 +297,7 @@
       applyBackground(document.getElementById('bgSelect').value);
       const theme = themeSelect.value;
       const custom = document.getElementById('custom').value.trim();
-      let size = parseInt(document.getElementById('size').value,10) || 13;
+      const sizeValue = document.getElementById('size').value;
       const age = document.getElementById('ageSelect').value;
 
       let entries = [];
@@ -246,14 +307,18 @@
 
       const ageMap = AGE_PRESETS || {};
       if(age && ageMap[age]){
-        size = ageMap[age].size;
-        document.getElementById('size').value = size;
         if(ageMap[age].maxWords && entries.length > ageMap[age].maxWords){
           entries = shuffle(entries).slice(0, ageMap[age].maxWords);
         }
       }
+      if(sizeValue !== 'all'){
+        const limit = parseInt(sizeValue,10);
+        if(limit && entries.length > limit){
+          entries = shuffle(entries).slice(0, limit);
+        }
+      }
 
-      const result = generate(entries, size);
+      const result = generateWithResize(entries);
       if(!result){alert('Could not build crossword. Try fewer or shorter words.'); return}
       const numbers = computeNumbers(result.grid);
       renderGrid(document.getElementById('gridWrap'), result.grid, numbers, false);

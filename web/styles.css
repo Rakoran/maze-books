@@ -19,6 +19,8 @@ table.grid.no-lines td{border-color:transparent}
 .topnav{display:flex;flex-wrap:wrap;gap:10px;row-gap:8px;margin:0 0 12px}
 .topnav a{color:#111;text-decoration:none;padding:6px 10px;border-radius:6px;background:#e9e9ec}
 .topnav a.active{background:#111;color:#fff}
+.github-link{display:inline-flex;align-items:center;gap:6px;background:#111;color:#fff}
+.github-link svg{width:16px;height:16px;fill:currentColor}
 
 .howto{margin-top:16px;padding:12px;border:1px solid #ddd;border-radius:8px;background:#fff}
 .howto h2{margin:0 0 8px;font-size:18px}
