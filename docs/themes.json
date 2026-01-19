@@ -1,236 +1,1498 @@
 {
-  "themes": {
-    "animals": ["cat", "dog", "lion", "tiger", "elephant", "giraffe", "zebra", "monkey", "panda", "kangaroo"],
-    "fruits": ["apple", "banana", "orange", "mango", "grape", "pear", "peach", "kiwi", "lemon", "melon"],
-    "planets": ["mercury","venus","earth","mars","jupiter","saturn","uranus","neptune","pluto"],
-    "ocean": ["ocean", "wave", "tide", "coral", "reef", "shark", "dolphin", "whale", "seal", "kelp"],
-    "space": ["rocket", "astronaut", "galaxy", "meteor", "comet", "orbit", "telescope", "satellite", "nebula", "star"],
-    "transport": ["car", "truck", "train", "plane", "boat", "bike", "bus", "subway", "scooter", "taxi"],
-    "sports": ["soccer", "tennis", "basketball", "baseball", "golf", "boxing", "swimming", "cycling", "skiing", "hockey"],
-    "school": ["teacher", "student", "classroom", "pencil", "notebook", "science", "history", "math", "reading", "library"],
-    "music": ["guitar", "piano", "drum", "violin", "trumpet", "melody", "rhythm", "chorus", "band", "song"],
-    "nature": ["forest", "river", "mountain", "valley", "meadow", "rain", "cloud", "storm", "sunshine", "rainbow"],
-    "technology": ["computer", "keyboard", "monitor", "internet", "software", "robot", "camera", "battery", "signal", "server"],
-    "mystery": ["secret", "clue", "puzzle", "detective", "alibi", "witness", "motive", "suspect", "evidence", "case"],
-    "cooking": ["recipe", "kitchen", "stove", "spoon", "mixing", "baking", "simmer", "season", "chop", "taste"]
-  },
-  "crosswordThemes": {
-    "animals": [
-      {"answer":"cat","clue":"Small pet that purrs"},
-      {"answer":"dog","clue":"Loyal pet that barks"},
-      {"answer":"lion","clue":"Big cat with a mane"},
-      {"answer":"zebra","clue":"Striped African animal"},
-      {"answer":"panda","clue":"Black and white bear"},
-      {"answer":"whale","clue":"Huge ocean mammal"},
-      {"answer":"eagle","clue":"Bird with sharp eyesight"},
-      {"answer":"mouse","clue":"Tiny creature that squeaks"}
-    ],
-    "space": [
-      {"answer":"planet","clue":"World that orbits a star"},
-      {"answer":"rocket","clue":"Vehicle for space travel"},
-      {"answer":"galaxy","clue":"Huge system of stars"},
-      {"answer":"comet","clue":"Icy body with a tail"},
-      {"answer":"orbit","clue":"Path around a planet or star"},
-      {"answer":"asteroid","clue":"Rocky space object"}
-    ],
-    "school": [
-      {"answer":"teacher","clue":"Leads a class"},
-      {"answer":"student","clue":"Learner in school"},
-      {"answer":"pencil","clue":"Tool for writing"},
-      {"answer":"library","clue":"Place full of books"},
-      {"answer":"recess","clue":"Break time for play"},
-      {"answer":"science","clue":"Study of the world"}
-    ],
-    "food": [
-      {"answer":"apple","clue":"Crisp red or green fruit"},
-      {"answer":"bread","clue":"Baked loaf"},
-      {"answer":"cheese","clue":"Dairy food often yellow"},
-      {"answer":"pizza","clue":"Round pie with toppings"},
-      {"answer":"salad","clue":"Mixed greens and veggies"},
-      {"answer":"soup","clue":"Warm bowl of broth"}
-    ],
-    "pets": [
-      {"answer":"cat","clue":"Small pet that purrs"},
-      {"answer":"dog","clue":"Loyal pet that barks"},
-      {"answer":"fish","clue":"Pet that swims in a tank"},
-      {"answer":"parrot","clue":"Pet bird that can mimic"},
-      {"answer":"turtle","clue":"Pet with a hard shell"},
-      {"answer":"hamster","clue":"Small pet that runs on a wheel"}
-    ],
-    "dinosaurs": [
-      {"answer":"trex","clue":"Famous big meat-eater"},
-      {"answer":"raptor","clue":"Fast, sharp-clawed dino"},
-      {"answer":"triceratops","clue":"Dino with three horns"},
-      {"answer":"stegosaurus","clue":"Dino with back plates"},
-      {"answer":"fossil","clue":"Ancient remains in rock"},
-      {"answer":"jurassic","clue":"Dinosaur time period"}
-    ]
-  },
-  "riddleThemes": {
-    "animals": [
-      {"riddle":"I purr and nap, and I chase a mouse. What am I?","answer":"Cat"},
-      {"riddle":"I bark and wag my tail. What am I?","answer":"Dog"},
-      {"riddle":"I have stripes and live in Africa. What am I?","answer":"Zebra"},
-      {"riddle":"I swing in trees and love bananas. What am I?","answer":"Monkey"}
-    ],
-    "nature": [
-      {"riddle":"I fall from the sky and make puddles. What am I?","answer":"Rain"},
-      {"riddle":"I shine in the day and warm the Earth. What am I?","answer":"Sun"},
-      {"riddle":"I float in the sky and can be fluffy. What am I?","answer":"Cloud"},
-      {"riddle":"I am tall, green, and have leaves. What am I?","answer":"Tree"}
-    ],
-    "home": [
-      {"riddle":"I keep food cold and have a door. What am I?","answer":"Fridge"},
-      {"riddle":"I light up a room when it is dark. What am I?","answer":"Lamp"},
-      {"riddle":"I am soft and you sleep on me. What am I?","answer":"Pillow"},
-      {"riddle":"I have pages and tell stories. What am I?","answer":"Book"}
-    ],
-    "school": [
-      {"riddle":"I am used to write, and I have an eraser. What am I?","answer":"Pencil"},
-      {"riddle":"I hold your notes and homework. What am I?","answer":"Notebook"},
-      {"riddle":"I ring to start and end class. What am I?","answer":"Bell"},
-      {"riddle":"I am where you find many books. What am I?","answer":"Library"}
-    ],
-    "pets": [
-      {"riddle":"I have whiskers and love to nap. What am I?","answer":"Cat"},
-      {"riddle":"I bark and like to play fetch. What am I?","answer":"Dog"},
-      {"riddle":"I swim in a bowl and blow bubbles. What am I?","answer":"Fish"},
-      {"riddle":"I carry my home on my back. What am I?","answer":"Turtle"}
-    ]
-  },
-  "cryptogramThemes": {
-    "animals": [
-      "A CAT HAS NINE LIVES",
-      "DOGS LOVE TO PLAY FETCH",
-      "BIRDS SING AT SUNRISE",
-      "A LION IS BRAVE"
-    ],
-    "nature": [
-      "RAIN MAKES FLOWERS GROW",
-      "THE SUN WARMS THE EARTH",
-      "WIND MOVES THE CLOUDS",
-      "THE FOREST IS QUIET"
-    ],
-    "school": [
-      "LEARN SOMETHING NEW EACH DAY",
-      "READING OPENS DOORS",
-      "MATH BUILDS LOGIC",
-      "PRACTICE MAKES PROGRESS"
-    ],
-    "space": [
-      "STARS SHINE IN THE NIGHT",
-      "ROCKETS FLY TO SPACE",
-      "PLANETS ORBIT THE SUN",
-      "THE MOON CHANGES SHAPE"
-    ],
-    "inspiration": [
-      "KINDNESS IS A SUPERPOWER",
-      "SMALL STEPS LEAD TO BIG GOALS",
-      "BE CURIOUS AND KEEP LEARNING",
-      "MISTAKES HELP US GROW"
-    ],
-    "pets": [
-      "PETS BRING JOY TO FAMILIES",
-      "A DOG IS A LOYAL FRIEND",
-      "CATS LOVE SUNNY WINDOWS",
-      "TURTLES MOVE SLOW AND STEADY"
-    ]
-  },
-  "ladderThemes": {
-    "common": [
-      "cat","cot","cog","dog","dot","hot","hat","bat","bad","bed","bet","bee","see","sea","tea","ted","red","rid","rig","rag","bag","bog","bug","dug","dig","fig","fin","pin","pan","pen","hen","her",
-      "cold","cord","card","ward","warm","worm","word","wood","good","goad","gold","bold","bald","ball","bell","belt","melt","malt","mail","main","pain","pair","hair","hail","tail","tall","tell","teal","seal","sear","soar","soap","soup",
-      "book","cook","cool","pool","poll","pole","pale","sale","sage","page","pace","pack","back","bank","band","hand","harm","farm","form",
-      "stone","stoke","stake","stack","slack","black","blank","blink","cling","clink","click","clock","block","brick","brink","bring","brine","brain","grain","groin","crown","brown","brawn","drawn"
-    ],
-    "nature": [
-      "tree","free","fret","fern","fire","five","rive","rime","time","tide","hide","hike","like","lake","lace","late","fate","gate","gale","tale"
-    ],
-    "space": [
-      "star","scar","seat","seal","seam","beam","bear","pear","near","gear","fear","feat","heat","heap","help","helm","held","hero"
-    ],
-    "pets": [
-      "cat","cot","cog","dog","dot","hot","hat","bat","bad","bed","bet",
-      "fish","dish","dash","cash","case","cane","lane","late","lite","site"
-    ]
-  },
-  "logicThemes": {
-    "pets": [
-      {
-        "title":"Pet Parade",
-        "categories":[
-          {"name":"Kids","items":["Ava","Ben","Cam"]},
-          {"name":"Pets","items":["Cat","Dog","Fish"]},
-          {"name":"Colors","items":["Red","Blue","Green"]}
-        ],
-        "solution":{"Ava":{"Pets":"Cat","Colors":"Red"},"Ben":{"Pets":"Dog","Colors":"Green"},"Cam":{"Pets":"Fish","Colors":"Blue"}},
-        "clues":[
-          "Ava does not have the dog.",
-          "The child with the cat likes red.",
-          "Ben likes green."
-        ]
-      },
-      {
-        "title":"Backyard Pets",
-        "categories":[
-          {"name":"Kids","items":["Lia","Max","Noah"]},
-          {"name":"Pets","items":["Bunny","Puppy","Turtle"]},
-          {"name":"Snacks","items":["Apple","Carrot","Crackers"]}
-        ],
-        "solution":{"Lia":{"Pets":"Bunny","Snacks":"Carrot"},"Max":{"Pets":"Puppy","Snacks":"Crackers"},"Noah":{"Pets":"Turtle","Snacks":"Apple"}},
-        "clues":[
-          "Max does not have the bunny.",
-          "The turtle's owner brought apples.",
-          "Lia brought carrots."
-        ]
-      }
-    ],
-    "school": [
-      {
-        "title":"Classroom Helpers",
-        "categories":[
-          {"name":"Students","items":["Mia","Owen","Zoe"]},
-          {"name":"Jobs","items":["Line Leader","Librarian","Messenger"]},
-          {"name":"Folders","items":["Yellow","Purple","Orange"]}
-        ],
-        "solution":{"Mia":{"Jobs":"Librarian","Folders":"Purple"},"Owen":{"Jobs":"Line Leader","Folders":"Yellow"},"Zoe":{"Jobs":"Messenger","Folders":"Orange"}},
-        "clues":[
-          "Mia is not the line leader.",
-          "The librarian has the purple folder.",
-          "Owen has the yellow folder."
-        ]
-      }
-    ],
-    "food": [
-      {
-        "title":"Lunch Orders",
-        "categories":[
-          {"name":"Kids","items":["Ivy","Kai","Rae"]},
-          {"name":"Meals","items":["Tacos","Pasta","Salad"]},
-          {"name":"Drinks","items":["Milk","Juice","Water"]}
-        ],
-        "solution":{"Ivy":{"Meals":"Salad","Drinks":"Water"},"Kai":{"Meals":"Tacos","Drinks":"Juice"},"Rae":{"Meals":"Pasta","Drinks":"Milk"}},
-        "clues":[
-          "Kai did not get pasta.",
-          "The salad comes with water.",
-          "Rae has milk."
-        ]
-      }
-    ]
-  },
-  "iSpyThemes": {
-    "ocean": ["wave","shell","fish","coral"],
-    "space": ["star","planet","rocket","moon"],
-    "forest": ["tree","leaf","mushroom","acorn"],
-    "garden": ["flower","bee","butterfly","ladybug"],
-    "city": ["car","bus","bike","sign"],
-    "pets": ["cat","dog","fish","turtle"]
-  },
-  "agePresets": {
-    "3-6": {"size":9, "teacher":true, "maxWords":5},
-    "6-8": {"size":11, "teacher":true, "maxWords":7},
-    "9-12": {"size":12, "teacher":true, "maxWords":9},
-    "13-17": {"size":14, "teacher":false, "maxWords":12},
-    "Adults": {"size":16, "teacher":false, "maxWords":14}
-  }
+  "wordDatabase": [
+    {
+      "word": "CAT",
+      "level": 1,
+      "tags": [
+        "animals"
+      ],
+      "associations": [],
+      "clue": "Purr-fect pet"
+    },
+    {
+      "word": "DOG",
+      "level": 1,
+      "tags": [
+        "animals"
+      ],
+      "associations": [],
+      "clue": "Loyal canine companion"
+    },
+    {
+      "word": "LION",
+      "level": 1,
+      "tags": [
+        "animals"
+      ],
+      "associations": [],
+      "clue": "King of the jungle"
+    },
+    {
+      "word": "PANDA",
+      "level": 1,
+      "tags": [
+        "animals"
+      ],
+      "associations": [],
+      "clue": "Bamboo eater"
+    },
+    {
+      "word": "TIGER",
+      "level": 1,
+      "tags": [
+        "animals"
+      ],
+      "associations": [],
+      "clue": "Striped predator"
+    },
+    {
+      "word": "ZEBRA",
+      "level": 1,
+      "tags": [
+        "animals"
+      ],
+      "associations": [],
+      "clue": "Striped equine"
+    },
+    {
+      "word": "ELEPHANT",
+      "level": 2,
+      "tags": [
+        "animals"
+      ],
+      "associations": [],
+      "clue": "Trunked giant"
+    },
+    {
+      "word": "GIRAFFE",
+      "level": 2,
+      "tags": [
+        "animals"
+      ],
+      "associations": [],
+      "clue": "Long-necked browser"
+    },
+    {
+      "word": "KANGAROO",
+      "level": 2,
+      "tags": [
+        "animals"
+      ],
+      "associations": [],
+      "clue": "Hopping marsupial"
+    },
+    {
+      "word": "MONKEY",
+      "level": 2,
+      "tags": [
+        "animals"
+      ],
+      "associations": [],
+      "clue": "Swinging primate"
+    },
+    {
+      "word": "BEE",
+      "level": 1,
+      "tags": [
+        "Animals"
+      ],
+      "clue": "Honey maker",
+      "associations": []
+    },
+    {
+      "word": "OWL",
+      "level": 1,
+      "tags": [
+        "Animals"
+      ],
+      "clue": "Wise night bird",
+      "associations": []
+    },
+    {
+      "word": "RABBIT",
+      "level": 1,
+      "tags": [
+        "Animals"
+      ],
+      "clue": "Hoppy hopper",
+      "associations": []
+    },
+    {
+      "word": "BEAR",
+      "level": 2,
+      "tags": [
+        "Animals"
+      ],
+      "clue": "Hibernating mammal",
+      "associations": []
+    },
+    {
+      "word": "BUTTERFLY",
+      "level": 2,
+      "tags": [
+        "Animals"
+      ],
+      "clue": "Colorful flyer",
+      "associations": []
+    },
+    {
+      "word": "DINOSAUR",
+      "level": 2,
+      "tags": [
+        "Animals"
+      ],
+      "clue": "Extinct creature",
+      "associations": []
+    },
+    {
+      "word": "FOX",
+      "level": 2,
+      "tags": [
+        "Animals"
+      ],
+      "clue": "Cunning red predator",
+      "associations": []
+    },
+    {
+      "word": "PENGUIN",
+      "level": 2,
+      "tags": [
+        "Animals"
+      ],
+      "clue": "Tuxedoed bird",
+      "associations": []
+    },
+    {
+      "word": "CHOP",
+      "level": 1,
+      "tags": [
+        "cooking"
+      ],
+      "associations": [],
+      "clue": "Word from cooking"
+    },
+    {
+      "word": "SPOON",
+      "level": 1,
+      "tags": [
+        "cooking"
+      ],
+      "associations": [],
+      "clue": "Word from cooking"
+    },
+    {
+      "word": "STOVE",
+      "level": 1,
+      "tags": [
+        "cooking"
+      ],
+      "associations": [],
+      "clue": "Word from cooking"
+    },
+    {
+      "word": "TASTE",
+      "level": 1,
+      "tags": [
+        "cooking"
+      ],
+      "associations": [],
+      "clue": "Word from cooking"
+    },
+    {
+      "word": "BAKING",
+      "level": 2,
+      "tags": [
+        "cooking"
+      ],
+      "associations": [],
+      "clue": "Word from cooking"
+    },
+    {
+      "word": "KITCHEN",
+      "level": 2,
+      "tags": [
+        "cooking"
+      ],
+      "associations": [],
+      "clue": "Word from cooking"
+    },
+    {
+      "word": "MIXING",
+      "level": 2,
+      "tags": [
+        "cooking"
+      ],
+      "associations": [],
+      "clue": "Word from cooking"
+    },
+    {
+      "word": "RECIPE",
+      "level": 2,
+      "tags": [
+        "cooking"
+      ],
+      "associations": [],
+      "clue": "Word from cooking"
+    },
+    {
+      "word": "SEASON",
+      "level": 2,
+      "tags": [
+        "cooking"
+      ],
+      "associations": [],
+      "clue": "Word from cooking"
+    },
+    {
+      "word": "SIMMER",
+      "level": 2,
+      "tags": [
+        "cooking"
+      ],
+      "associations": [],
+      "clue": "Word from cooking"
+    },
+    {
+      "word": "APPLE",
+      "level": 1,
+      "tags": [
+        "fruits"
+      ],
+      "associations": [],
+      "clue": "Crunchy fruit"
+    },
+    {
+      "word": "GRAPE",
+      "level": 1,
+      "tags": [
+        "fruits"
+      ],
+      "associations": [],
+      "clue": "Bunch fruit"
+    },
+    {
+      "word": "KIWI",
+      "level": 1,
+      "tags": [
+        "fruits"
+      ],
+      "associations": [],
+      "clue": "Hairy fruit"
+    },
+    {
+      "word": "LEMON",
+      "level": 1,
+      "tags": [
+        "fruits"
+      ],
+      "associations": [],
+      "clue": "Sour citrus"
+    },
+    {
+      "word": "MANGO",
+      "level": 1,
+      "tags": [
+        "fruits"
+      ],
+      "associations": [],
+      "clue": "Tropical delight"
+    },
+    {
+      "word": "MELON",
+      "level": 1,
+      "tags": [
+        "fruits"
+      ],
+      "associations": [],
+      "clue": "Juicy orb"
+    },
+    {
+      "word": "PEACH",
+      "level": 1,
+      "tags": [
+        "fruits"
+      ],
+      "associations": [],
+      "clue": "Fuzzy fruit"
+    },
+    {
+      "word": "PEAR",
+      "level": 1,
+      "tags": [
+        "fruits"
+      ],
+      "associations": [],
+      "clue": "Bell-shaped fruit"
+    },
+    {
+      "word": "BANANA",
+      "level": 2,
+      "tags": [
+        "fruits"
+      ],
+      "associations": [],
+      "clue": "Peelable fruit"
+    },
+    {
+      "word": "ORANGE",
+      "level": 2,
+      "tags": [
+        "fruits"
+      ],
+      "associations": [],
+      "clue": "Citrus sphere"
+    },
+    {
+      "word": "BLUEBERRY",
+      "level": 2,
+      "tags": [
+        "Fruits"
+      ],
+      "clue": "Tiny blue fruit",
+      "associations": []
+    },
+    {
+      "word": "COCONUT",
+      "level": 2,
+      "tags": [
+        "Fruits"
+      ],
+      "clue": "Hairy tropical nut",
+      "associations": []
+    },
+    {
+      "word": "PINEAPPLE",
+      "level": 2,
+      "tags": [
+        "Fruits"
+      ],
+      "clue": "Spiky tropical fruit",
+      "associations": []
+    },
+    {
+      "word": "STRAWBERRY",
+      "level": 2,
+      "tags": [
+        "Fruits"
+      ],
+      "clue": "Red juicy berry",
+      "associations": []
+    },
+    {
+      "word": "WATERMELON",
+      "level": 2,
+      "tags": [
+        "Fruits"
+      ],
+      "clue": "Summer melon",
+      "associations": []
+    },
+    {
+      "word": "CARDS",
+      "level": 2,
+      "tags": [
+        "Games"
+      ],
+      "clue": "Playing deck",
+      "associations": []
+    },
+    {
+      "word": "DICE",
+      "level": 2,
+      "tags": [
+        "Games"
+      ],
+      "clue": "Number cubes",
+      "associations": []
+    },
+    {
+      "word": "CHESS",
+      "level": 3,
+      "tags": [
+        "Games"
+      ],
+      "clue": "Strategic board game",
+      "associations": []
+    },
+    {
+      "word": "BAND",
+      "level": 1,
+      "tags": [
+        "music"
+      ],
+      "associations": [],
+      "clue": "Word from music"
+    },
+    {
+      "word": "DRUM",
+      "level": 1,
+      "tags": [
+        "music"
+      ],
+      "associations": [],
+      "clue": "Word from music"
+    },
+    {
+      "word": "PIANO",
+      "level": 1,
+      "tags": [
+        "music"
+      ],
+      "associations": [],
+      "clue": "Word from music"
+    },
+    {
+      "word": "SONG",
+      "level": 1,
+      "tags": [
+        "music"
+      ],
+      "associations": [],
+      "clue": "Word from music"
+    },
+    {
+      "word": "CHORUS",
+      "level": 2,
+      "tags": [
+        "music"
+      ],
+      "associations": [],
+      "clue": "Word from music"
+    },
+    {
+      "word": "GUITAR",
+      "level": 2,
+      "tags": [
+        "music"
+      ],
+      "associations": [],
+      "clue": "Word from music"
+    },
+    {
+      "word": "MELODY",
+      "level": 2,
+      "tags": [
+        "music"
+      ],
+      "associations": [],
+      "clue": "Word from music"
+    },
+    {
+      "word": "RHYTHM",
+      "level": 2,
+      "tags": [
+        "music"
+      ],
+      "associations": [],
+      "clue": "Word from music"
+    },
+    {
+      "word": "TRUMPET",
+      "level": 2,
+      "tags": [
+        "music"
+      ],
+      "associations": [],
+      "clue": "Word from music"
+    },
+    {
+      "word": "VIOLIN",
+      "level": 2,
+      "tags": [
+        "music"
+      ],
+      "associations": [],
+      "clue": "Word from music"
+    },
+    {
+      "word": "ALIBI",
+      "level": 1,
+      "tags": [
+        "mystery"
+      ],
+      "associations": [],
+      "clue": "Word from mystery"
+    },
+    {
+      "word": "CASE",
+      "level": 1,
+      "tags": [
+        "mystery"
+      ],
+      "associations": [],
+      "clue": "Word from mystery"
+    },
+    {
+      "word": "CLUE",
+      "level": 1,
+      "tags": [
+        "mystery"
+      ],
+      "associations": [],
+      "clue": "Word from mystery"
+    },
+    {
+      "word": "EVIDENCE",
+      "level": 2,
+      "tags": [
+        "mystery"
+      ],
+      "associations": [],
+      "clue": "Word from mystery"
+    },
+    {
+      "word": "MOTIVE",
+      "level": 2,
+      "tags": [
+        "mystery"
+      ],
+      "associations": [],
+      "clue": "Word from mystery"
+    },
+    {
+      "word": "PUZZLE",
+      "level": 2,
+      "tags": [
+        "mystery"
+      ],
+      "associations": [],
+      "clue": "Brain teaser"
+    },
+    {
+      "word": "SECRET",
+      "level": 2,
+      "tags": [
+        "mystery"
+      ],
+      "associations": [],
+      "clue": "Word from mystery"
+    },
+    {
+      "word": "SUSPECT",
+      "level": 2,
+      "tags": [
+        "mystery"
+      ],
+      "associations": [],
+      "clue": "Word from mystery"
+    },
+    {
+      "word": "WITNESS",
+      "level": 2,
+      "tags": [
+        "mystery"
+      ],
+      "associations": [],
+      "clue": "Word from mystery"
+    },
+    {
+      "word": "DETECTIVE",
+      "level": 3,
+      "tags": [
+        "mystery"
+      ],
+      "associations": [],
+      "clue": "Word from mystery"
+    },
+    {
+      "word": "CLOUD",
+      "level": 1,
+      "tags": [
+        "nature"
+      ],
+      "associations": [],
+      "clue": "Word from nature"
+    },
+    {
+      "word": "RAIN",
+      "level": 1,
+      "tags": [
+        "nature"
+      ],
+      "associations": [],
+      "clue": "Word from nature"
+    },
+    {
+      "word": "RIVER",
+      "level": 1,
+      "tags": [
+        "nature"
+      ],
+      "associations": [],
+      "clue": "Word from nature"
+    },
+    {
+      "word": "STORM",
+      "level": 1,
+      "tags": [
+        "nature"
+      ],
+      "associations": [],
+      "clue": "Word from nature"
+    },
+    {
+      "word": "FOREST",
+      "level": 2,
+      "tags": [
+        "nature"
+      ],
+      "associations": [],
+      "clue": "Word from nature"
+    },
+    {
+      "word": "MEADOW",
+      "level": 2,
+      "tags": [
+        "nature"
+      ],
+      "associations": [],
+      "clue": "Word from nature"
+    },
+    {
+      "word": "MOUNTAIN",
+      "level": 2,
+      "tags": [
+        "nature"
+      ],
+      "associations": [],
+      "clue": "Word from nature"
+    },
+    {
+      "word": "RAINBOW",
+      "level": 2,
+      "tags": [
+        "nature"
+      ],
+      "associations": [],
+      "clue": "Word from nature"
+    },
+    {
+      "word": "SUNSHINE",
+      "level": 2,
+      "tags": [
+        "nature"
+      ],
+      "associations": [],
+      "clue": "Word from nature"
+    },
+    {
+      "word": "VALLEY",
+      "level": 2,
+      "tags": [
+        "nature"
+      ],
+      "associations": [],
+      "clue": "Word from nature"
+    },
+    {
+      "word": "CORAL",
+      "level": 1,
+      "tags": [
+        "ocean"
+      ],
+      "associations": [],
+      "clue": "Undersea reef"
+    },
+    {
+      "word": "KELP",
+      "level": 1,
+      "tags": [
+        "ocean"
+      ],
+      "associations": [],
+      "clue": "Seaweed forest"
+    },
+    {
+      "word": "OCEAN",
+      "level": 1,
+      "tags": [
+        "ocean"
+      ],
+      "associations": [],
+      "clue": "Vast sea"
+    },
+    {
+      "word": "REEF",
+      "level": 1,
+      "tags": [
+        "ocean"
+      ],
+      "associations": [],
+      "clue": "Underwater ridge"
+    },
+    {
+      "word": "SEAL",
+      "level": 1,
+      "tags": [
+        "ocean"
+      ],
+      "associations": [],
+      "clue": "Barking swimmer"
+    },
+    {
+      "word": "SHARK",
+      "level": 1,
+      "tags": [
+        "ocean"
+      ],
+      "associations": [],
+      "clue": "Jagged-tooth predator"
+    },
+    {
+      "word": "TIDE",
+      "level": 1,
+      "tags": [
+        "ocean"
+      ],
+      "associations": [],
+      "clue": "Sea level change"
+    },
+    {
+      "word": "WAVE",
+      "level": 1,
+      "tags": [
+        "ocean"
+      ],
+      "associations": [],
+      "clue": "Rolling water"
+    },
+    {
+      "word": "WHALE",
+      "level": 1,
+      "tags": [
+        "ocean"
+      ],
+      "associations": [],
+      "clue": "Ocean giant"
+    },
+    {
+      "word": "DOLPHIN",
+      "level": 2,
+      "tags": [
+        "ocean"
+      ],
+      "associations": [],
+      "clue": "Intelligent cetacean"
+    },
+    {
+      "word": "LIGHTHOUSE",
+      "level": 2,
+      "tags": [
+        "Ocean"
+      ],
+      "clue": "Guiding beacon",
+      "associations": []
+    },
+    {
+      "word": "EARTH",
+      "level": 1,
+      "tags": [
+        "planets"
+      ],
+      "associations": [],
+      "clue": "Our home planet"
+    },
+    {
+      "word": "MARS",
+      "level": 1,
+      "tags": [
+        "planets"
+      ],
+      "associations": [],
+      "clue": "Red planet"
+    },
+    {
+      "word": "PLUTO",
+      "level": 1,
+      "tags": [
+        "planets"
+      ],
+      "associations": [],
+      "clue": "Dwarf planet"
+    },
+    {
+      "word": "VENUS",
+      "level": 1,
+      "tags": [
+        "planets"
+      ],
+      "associations": [],
+      "clue": "Morning star"
+    },
+    {
+      "word": "JUPITER",
+      "level": 2,
+      "tags": [
+        "planets"
+      ],
+      "associations": [],
+      "clue": "Giant planet"
+    },
+    {
+      "word": "MERCURY",
+      "level": 2,
+      "tags": [
+        "planets"
+      ],
+      "associations": [],
+      "clue": "Swift planet"
+    },
+    {
+      "word": "NEPTUNE",
+      "level": 2,
+      "tags": [
+        "planets"
+      ],
+      "associations": [],
+      "clue": "Windy planet"
+    },
+    {
+      "word": "SATURN",
+      "level": 2,
+      "tags": [
+        "planets"
+      ],
+      "associations": [],
+      "clue": "Ringed planet"
+    },
+    {
+      "word": "URANUS",
+      "level": 2,
+      "tags": [
+        "planets"
+      ],
+      "associations": [],
+      "clue": "Tilted planet"
+    },
+    {
+      "word": "MATH",
+      "level": 1,
+      "tags": [
+        "school"
+      ],
+      "associations": [],
+      "clue": "Number study"
+    },
+    {
+      "word": "HISTORY",
+      "level": 2,
+      "tags": [
+        "school"
+      ],
+      "associations": [],
+      "clue": "Past events"
+    },
+    {
+      "word": "LIBRARY",
+      "level": 2,
+      "tags": [
+        "school"
+      ],
+      "associations": [],
+      "clue": "Book repository"
+    },
+    {
+      "word": "NOTEBOOK",
+      "level": 2,
+      "tags": [
+        "school"
+      ],
+      "associations": [],
+      "clue": "Page holder"
+    },
+    {
+      "word": "PENCIL",
+      "level": 2,
+      "tags": [
+        "school"
+      ],
+      "associations": [],
+      "clue": "Writing tool"
+    },
+    {
+      "word": "READING",
+      "level": 2,
+      "tags": [
+        "school"
+      ],
+      "associations": [],
+      "clue": "Book activity"
+    },
+    {
+      "word": "SCIENCE",
+      "level": 2,
+      "tags": [
+        "school"
+      ],
+      "associations": [],
+      "clue": "Study of nature"
+    },
+    {
+      "word": "STUDENT",
+      "level": 2,
+      "tags": [
+        "school"
+      ],
+      "associations": [],
+      "clue": "Learner"
+    },
+    {
+      "word": "TEACHER",
+      "level": 2,
+      "tags": [
+        "school"
+      ],
+      "associations": [],
+      "clue": "Class instructor"
+    },
+    {
+      "word": "CLASSROOM",
+      "level": 3,
+      "tags": [
+        "school"
+      ],
+      "associations": [],
+      "clue": "Learning space"
+    },
+    {
+      "word": "DESK",
+      "level": 1,
+      "tags": [
+        "School"
+      ],
+      "clue": "Work surface",
+      "associations": []
+    },
+    {
+      "word": "GYM",
+      "level": 1,
+      "tags": [
+        "School"
+      ],
+      "clue": "Exercise room",
+      "associations": []
+    },
+    {
+      "word": "ART",
+      "level": 2,
+      "tags": [
+        "School"
+      ],
+      "clue": "Creative expression",
+      "associations": []
+    },
+    {
+      "word": "CAFETERIA",
+      "level": 2,
+      "tags": [
+        "School"
+      ],
+      "clue": "Lunch room",
+      "associations": []
+    },
+    {
+      "word": "MUSIC",
+      "level": 2,
+      "tags": [
+        "School"
+      ],
+      "clue": "Melodious sounds",
+      "associations": []
+    },
+    {
+      "word": "PRINCIPAL",
+      "level": 3,
+      "tags": [
+        "School"
+      ],
+      "clue": "School leader",
+      "associations": []
+    },
+    {
+      "word": "COMET",
+      "level": 1,
+      "tags": [
+        "space"
+      ],
+      "associations": [],
+      "clue": "Tail of ice"
+    },
+    {
+      "word": "ORBIT",
+      "level": 1,
+      "tags": [
+        "space"
+      ],
+      "associations": [],
+      "clue": "Planetary path"
+    },
+    {
+      "word": "STAR",
+      "level": 1,
+      "tags": [
+        "space"
+      ],
+      "associations": [],
+      "clue": "Twinkling light"
+    },
+    {
+      "word": "GALAXY",
+      "level": 2,
+      "tags": [
+        "space"
+      ],
+      "associations": [],
+      "clue": "Star collection"
+    },
+    {
+      "word": "METEOR",
+      "level": 2,
+      "tags": [
+        "space"
+      ],
+      "associations": [],
+      "clue": "Shooting star"
+    },
+    {
+      "word": "NEBULA",
+      "level": 2,
+      "tags": [
+        "space"
+      ],
+      "associations": [],
+      "clue": "Cosmic cloud"
+    },
+    {
+      "word": "ROCKET",
+      "level": 2,
+      "tags": [
+        "space"
+      ],
+      "associations": [],
+      "clue": "Space launcher"
+    },
+    {
+      "word": "ASTRONAUT",
+      "level": 3,
+      "tags": [
+        "space"
+      ],
+      "associations": [],
+      "clue": "Space explorer"
+    },
+    {
+      "word": "SATELLITE",
+      "level": 3,
+      "tags": [
+        "space"
+      ],
+      "associations": [],
+      "clue": "Word from space"
+    },
+    {
+      "word": "TELESCOPE",
+      "level": 3,
+      "tags": [
+        "space"
+      ],
+      "associations": [],
+      "clue": "Word from space"
+    },
+    {
+      "word": "PLANET",
+      "level": 2,
+      "tags": [
+        "Space"
+      ],
+      "clue": "Orbiting world",
+      "associations": []
+    },
+    {
+      "word": "BLACK HOLE",
+      "level": 3,
+      "tags": [
+        "Space"
+      ],
+      "clue": "Cosmic void",
+      "associations": []
+    },
+    {
+      "word": "GOLF",
+      "level": 1,
+      "tags": [
+        "sports"
+      ],
+      "associations": [],
+      "clue": "Club and ball"
+    },
+    {
+      "word": "BASEBALL",
+      "level": 2,
+      "tags": [
+        "sports"
+      ],
+      "associations": [],
+      "clue": "Diamond sport"
+    },
+    {
+      "word": "BOXING",
+      "level": 2,
+      "tags": [
+        "sports"
+      ],
+      "associations": [],
+      "clue": "Fist fight"
+    },
+    {
+      "word": "CYCLING",
+      "level": 2,
+      "tags": [
+        "sports"
+      ],
+      "associations": [],
+      "clue": "Bike race"
+    },
+    {
+      "word": "HOCKEY",
+      "level": 2,
+      "tags": [
+        "sports"
+      ],
+      "associations": [],
+      "clue": "Puck game"
+    },
+    {
+      "word": "SKIING",
+      "level": 2,
+      "tags": [
+        "sports"
+      ],
+      "associations": [],
+      "clue": "Snow glide"
+    },
+    {
+      "word": "SOCCER",
+      "level": 2,
+      "tags": [
+        "sports"
+      ],
+      "associations": [],
+      "clue": "Football game"
+    },
+    {
+      "word": "SWIMMING",
+      "level": 2,
+      "tags": [
+        "sports"
+      ],
+      "associations": [],
+      "clue": "Pool activity"
+    },
+    {
+      "word": "TENNIS",
+      "level": 2,
+      "tags": [
+        "sports"
+      ],
+      "associations": [],
+      "clue": "Racket sport"
+    },
+    {
+      "word": "BASKETBALL",
+      "level": 3,
+      "tags": [
+        "sports"
+      ],
+      "associations": [],
+      "clue": "Hoop game"
+    },
+    {
+      "word": "FOOTBALL",
+      "level": 2,
+      "tags": [
+        "Sports"
+      ],
+      "clue": "Gridiron game",
+      "associations": []
+    },
+    {
+      "word": "VOLLEYBALL",
+      "level": 2,
+      "tags": [
+        "Sports"
+      ],
+      "clue": "Beach ball game",
+      "associations": []
+    },
+    {
+      "word": "BADMINTON",
+      "level": 3,
+      "tags": [
+        "Sports"
+      ],
+      "clue": "Shuttlecock game",
+      "associations": []
+    },
+    {
+      "word": "KARATE",
+      "level": 3,
+      "tags": [
+        "Sports"
+      ],
+      "clue": "Martial art",
+      "associations": []
+    },
+    {
+      "word": "ROBOT",
+      "level": 1,
+      "tags": [
+        "technology"
+      ],
+      "associations": [],
+      "clue": "Word from technology"
+    },
+    {
+      "word": "BATTERY",
+      "level": 2,
+      "tags": [
+        "technology"
+      ],
+      "associations": [],
+      "clue": "Word from technology"
+    },
+    {
+      "word": "CAMERA",
+      "level": 2,
+      "tags": [
+        "technology"
+      ],
+      "associations": [],
+      "clue": "Word from technology"
+    },
+    {
+      "word": "COMPUTER",
+      "level": 2,
+      "tags": [
+        "technology"
+      ],
+      "associations": [],
+      "clue": "Digital machine"
+    },
+    {
+      "word": "INTERNET",
+      "level": 2,
+      "tags": [
+        "technology"
+      ],
+      "associations": [],
+      "clue": "Word from technology"
+    },
+    {
+      "word": "KEYBOARD",
+      "level": 2,
+      "tags": [
+        "technology"
+      ],
+      "associations": [],
+      "clue": "Word from technology"
+    },
+    {
+      "word": "MONITOR",
+      "level": 2,
+      "tags": [
+        "technology"
+      ],
+      "associations": [],
+      "clue": "Word from technology"
+    },
+    {
+      "word": "SERVER",
+      "level": 2,
+      "tags": [
+        "technology"
+      ],
+      "associations": [],
+      "clue": "Word from technology"
+    },
+    {
+      "word": "SIGNAL",
+      "level": 2,
+      "tags": [
+        "technology"
+      ],
+      "associations": [],
+      "clue": "Word from technology"
+    },
+    {
+      "word": "SOFTWARE",
+      "level": 2,
+      "tags": [
+        "technology"
+      ],
+      "associations": [],
+      "clue": "Word from technology"
+    },
+    {
+      "word": "BIKE",
+      "level": 1,
+      "tags": [
+        "transport"
+      ],
+      "associations": [],
+      "clue": "Two-wheeler"
+    },
+    {
+      "word": "BOAT",
+      "level": 1,
+      "tags": [
+        "transport"
+      ],
+      "associations": [],
+      "clue": "Water craft"
+    },
+    {
+      "word": "BUS",
+      "level": 1,
+      "tags": [
+        "transport"
+      ],
+      "associations": [],
+      "clue": "Passenger carrier"
+    },
+    {
+      "word": "CAR",
+      "level": 1,
+      "tags": [
+        "transport"
+      ],
+      "associations": [],
+      "clue": "Auto vehicle"
+    },
+    {
+      "word": "PLANE",
+      "level": 1,
+      "tags": [
+        "transport"
+      ],
+      "associations": [],
+      "clue": "Sky flyer"
+    },
+    {
+      "word": "TAXI",
+      "level": 1,
+      "tags": [
+        "transport"
+      ],
+      "associations": [],
+      "clue": "Hired ride"
+    },
+    {
+      "word": "TRAIN",
+      "level": 1,
+      "tags": [
+        "transport"
+      ],
+      "associations": [],
+      "clue": "Rail traveler"
+    },
+    {
+      "word": "TRUCK",
+      "level": 1,
+      "tags": [
+        "transport"
+      ],
+      "associations": [],
+      "clue": "Hauling vehicle"
+    },
+    {
+      "word": "SCOOTER",
+      "level": 2,
+      "tags": [
+        "transport"
+      ],
+      "associations": [],
+      "clue": "Kick scooter"
+    },
+    {
+      "word": "SUBWAY",
+      "level": 2,
+      "tags": [
+        "transport"
+      ],
+      "associations": [],
+      "clue": "Underground train"
+    },
+    {
+      "word": "BICYCLE",
+      "level": 2,
+      "tags": [
+        "Transport"
+      ],
+      "clue": "Two-pedal ride",
+      "associations": []
+    },
+    {
+      "word": "SHIP",
+      "level": 2,
+      "tags": [
+        "Transport"
+      ],
+      "clue": "Ocean vessel",
+      "associations": []
+    },
+    {
+      "word": "HELICOPTER",
+      "level": 3,
+      "tags": [
+        "Transport"
+      ],
+      "clue": "Chopper in the sky",
+      "associations": []
+    },
+    {
+      "word": "MOTORCYCLE",
+      "level": 3,
+      "tags": [
+        "Transport"
+      ],
+      "clue": "Two-wheeled speed machine",
+      "associations": []
+    },
+    {
+      "word": "CARROT",
+      "level": 1,
+      "tags": [
+        "Vegetables"
+      ],
+      "clue": "Orange root veggie",
+      "associations": []
+    },
+    {
+      "word": "POTATO",
+      "level": 1,
+      "tags": [
+        "Vegetables"
+      ],
+      "clue": "Starchy tuber",
+      "associations": []
+    },
+    {
+      "word": "BROCCOLI",
+      "level": 2,
+      "tags": [
+        "Vegetables"
+      ],
+      "clue": "Green tree veggie",
+      "associations": []
+    },
+    {
+      "word": "LETTUCE",
+      "level": 2,
+      "tags": [
+        "Vegetables"
+      ],
+      "clue": "Leafy green",
+      "associations": []
+    }
+  ]
 }

@@ -114,8 +114,7 @@
       "tags": [
         "Animals"
       ],
-      "clue": "Hoppy hopper",
-      "associations": []
+      "clue": "Hoppy hopper"
     },
     {
       "word": "BEAR",
@@ -123,8 +122,7 @@
       "tags": [
         "Animals"
       ],
-      "clue": "Hibernating mammal",
-      "associations": []
+      "clue": "Hibernating mammal"
     },
     {
       "word": "BUTTERFLY",
@@ -186,8 +184,7 @@
       "tags": [
         "Animals"
       ],
-      "clue": "Cunning red predator",
-      "associations": []
+      "clue": "Cunning red predator"
     },
     {
       "word": "GOAT",
@@ -1092,8 +1089,7 @@
       "tags": [
         "Fruits"
       ],
-      "clue": "Tiny blue fruit",
-      "associations": []
+      "clue": "Tiny blue fruit"
     },
     {
       "word": "COCONUT",
@@ -1119,8 +1115,15 @@
       "tags": [
         "Fruits"
       ],
-      "clue": "Red juicy berry",
-      "associations": []
+      "clue": "Red juicy berry"
+    },
+    {
+      "word": "TOMATO",
+      "level": 2,
+      "tags": [
+        "Fruits"
+      ],
+      "clue": "Word from Fruits"
     },
     {
       "word": "WATERMELON",
@@ -1155,8 +1158,7 @@
       "tags": [
         "Games"
       ],
-      "clue": "Brain teaser",
-      "associations": []
+      "clue": "Brain teaser"
     },
     {
       "word": "CHESS",
@@ -1164,8 +1166,7 @@
       "tags": [
         "Games"
       ],
-      "clue": "Strategic board game",
-      "associations": []
+      "clue": "Strategic board game"
     },
     {
       "word": "CRAB",
@@ -1390,13 +1391,20 @@
       "associations": []
     },
     {
+      "word": "GYM",
+      "level": 1,
+      "tags": [
+        "School"
+      ],
+      "clue": "Exercise room"
+    },
+    {
       "word": "ART",
       "level": 2,
       "tags": [
         "School"
       ],
-      "clue": "Creative expression",
-      "associations": []
+      "clue": "Creative expression"
     },
     {
       "word": "CAFETERIA",
@@ -1404,8 +1412,7 @@
       "tags": [
         "School"
       ],
-      "clue": "Lunch room",
-      "associations": []
+      "clue": "Lunch room"
     },
     {
       "word": "COMPUTER",
@@ -1422,8 +1429,7 @@
       "tags": [
         "School"
       ],
-      "clue": "Melodious sounds",
-      "associations": []
+      "clue": "Melodious sounds"
     },
     {
       "word": "PRINCIPAL",
@@ -1431,8 +1437,7 @@
       "tags": [
         "School"
       ],
-      "clue": "School leader",
-      "associations": []
+      "clue": "School leader"
     },
     {
       "word": "MOON",
@@ -1745,8 +1750,7 @@
       "tags": [
         "Sports"
       ],
-      "clue": "Gridiron game",
-      "associations": []
+      "clue": "Gridiron game"
     },
     {
       "word": "GOAL",
@@ -1814,8 +1818,7 @@
       "tags": [
         "Sports"
       ],
-      "clue": "Beach ball game",
-      "associations": []
+      "clue": "Beach ball game"
     },
     {
       "word": "BADMINTON",
@@ -1931,8 +1934,7 @@
       "tags": [
         "Transport"
       ],
-      "clue": "Chopper in the sky",
-      "associations": []
+      "clue": "Chopper in the sky"
     },
     {
       "word": "MOTORCYCLE",
@@ -1940,8 +1942,7 @@
       "tags": [
         "Transport"
       ],
-      "clue": "Two-wheeled speed machine",
-      "associations": []
+      "clue": "Two-wheeled speed machine"
     },
     {
       "word": "CARROT",
@@ -1949,8 +1950,7 @@
       "tags": [
         "Vegetables"
       ],
-      "clue": "Orange root veggie",
-      "associations": []
+      "clue": "Orange root veggie"
     },
     {
       "word": "POTATO",
@@ -1958,8 +1958,7 @@
       "tags": [
         "Vegetables"
       ],
-      "clue": "Starchy tuber",
-      "associations": []
+      "clue": "Starchy tuber"
     },
     {
       "word": "BROCCOLI",
@@ -1967,8 +1966,7 @@
       "tags": [
         "Vegetables"
       ],
-      "clue": "Green tree veggie",
-      "associations": []
+      "clue": "Green tree veggie"
     },
     {
       "word": "LETTUCE",

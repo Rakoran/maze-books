@@ -8,7 +8,7 @@
   function makeEmptyGrid(n){return Array.from({length:n},()=>Array.from({length:n},()=>null))}
   function canPlace(grid, word, r, c, dr, dc){const n=grid.length;for(let i=0;i<word.length;i++){const rr=r+dr*i,cc=c+dc*i;if(rr<0||cc<0||rr>=n||cc>=n) return false;const ch=grid[rr][cc]; if(ch && ch!==word[i]) return false;}return true}
   function placeWord(grid, word, r, c, dr, dc){for(let i=0;i<word.length;i++) grid[r+dr*i][c+dc*i]=word[i]}
-  function fillGrid(grid){const letters='ABCDEFGHIJKLMNOPQRSTUVWXYZ';for(let r=0;r<grid.length;r++)for(let c=0;c<grid.length;c++)if(!grid[r][c])grid[r][c]=letters[Math.floor(Math.random()*letters.length)]}
+  function fillGrid(grid){const letters='ABCDEFGHIJKLMNOPQRSTUVWXYZ';const weights=[8.12,1.54,2.71,4.32,12.02,2.30,1.73,5.92,7.31,0.23,0.87,3.98,2.61,6.95,7.68,1.66,0.14,6.02,6.28,9.10,2.88,1.06,2.11,0.06,2.11,0.23];const total=weights.reduce((a,b)=>a+b,0);const cumulative=weights.map((w,i)=>weights.slice(0,i+1).reduce((a,b)=>a+b,0)/total);for(let r=0;r<grid.length;r++)for(let c=0;c<grid.length;c++)if(!grid[r][c]){const rand=Math.random();const idx=cumulative.findIndex(c=>rand<=c);grid[r][c]=letters[idx]}}
   function generate(words,size,teacher){
     const n = size || Math.max(10, ...words.map(w=>w.length));
     const grid = makeEmptyGrid(n);
