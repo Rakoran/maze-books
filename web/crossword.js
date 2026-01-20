@@ -418,7 +418,15 @@
 
   async function loadThemes() {
     try {
-      const response = await fetch('word-themes.json');
+      const localUrl = `word-themes.json?v=${Date.now()}`;
+      let response = await fetch(localUrl, { cache: 'no-store' });
+      if (!response.ok) {
+        const fallbackUrl = 'https://raw.githubusercontent.com/Rakoren/maze-books/master/docs/word-themes.json';
+        response = await fetch(fallbackUrl, { cache: 'no-store' });
+      }
+      if (!response.ok) {
+        throw new Error(`Theme load failed (${response.status})`);
+      }
       const data = await response.json();
       wordDatabase = data.wordDatabase || [];
       const themeSet = new Set();
@@ -438,7 +446,7 @@
       });
     } catch (error) {
       console.error('Failed to load themes:', error);
-      updateStatus('Failed to load themes', 'error');
+      updateStatus('Failed to load themes. Please refresh or check the site URL.', 'error');
     }
   }
 
