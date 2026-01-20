@@ -182,36 +182,68 @@
     canvas.height = rows * cellSize + padding * 2;
     const ctx = canvas.getContext('2d');
 
-    const bg = (style.getPropertyValue('--puzzle-bg') || '').trim();
-    if (bg && bg !== 'transparent') {
-      ctx.fillStyle = bg;
+    const bgValue = (style.getPropertyValue('--puzzle-bg') || '').trim() || '#ffffff';
+    const resolvedBg = bgValue.toLowerCase() === 'transparent' ? null : bgValue;
+
+    if (resolvedBg) {
+      ctx.fillStyle = resolvedBg;
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
     } else {
-      ctx.fillStyle = '#ffffff';
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
     }
-    ctx.fillRect(0, 0, canvas.width, canvas.height);
 
     const numbers = currentPuzzle.numbers || [];
     const showAnswers = !!currentPuzzle.showingAnswers;
     const numFont = Math.max(10, Math.floor(cellSize * 0.35));
     const letterFont = Math.floor(cellSize * 0.65);
+    const lineWidth = 2;
+
+
+
+
+
+
+
+    const hasLetter = (r, c) => !!(grid[r] && grid[r][c]);
 
     for (let r = 0; r < rows; r++) {
       for (let c = 0; c < cols; c++) {
         const letter = grid[r][c];
+        if (!letter) continue;
         const x = padding + c * cellSize;
         const y = padding + r * cellSize;
-
-        if (!letter) {
-          ctx.fillStyle = '#111';
-          ctx.fillRect(x, y, cellSize, cellSize);
-          continue;
-        }
-
         ctx.fillStyle = '#fff';
         ctx.fillRect(x, y, cellSize, cellSize);
-        ctx.strokeStyle = '#111';
-        ctx.lineWidth = 2;
-        ctx.strokeRect(x, y, cellSize, cellSize);
+      }
+    }
+
+    ctx.fillStyle = '#111';
+    for (let r = 0; r <= rows; r++) {
+      const y = padding + r * cellSize;
+      for (let c = 0; c < cols; c++) {
+        if (hasLetter(r - 1, c) || hasLetter(r, c)) {
+          const x = padding + c * cellSize;
+          ctx.fillRect(x, y, cellSize, lineWidth);
+        }
+      }
+    }
+
+    for (let c = 0; c <= cols; c++) {
+      const x = padding + c * cellSize;
+      for (let r = 0; r < rows; r++) {
+        if (hasLetter(r, c - 1) || hasLetter(r, c)) {
+          const y = padding + r * cellSize;
+          ctx.fillRect(x, y, lineWidth, cellSize);
+        }
+      }
+    }
+
+    for (let r = 0; r < rows; r++) {
+      for (let c = 0; c < cols; c++) {
+        const letter = grid[r][c];
+        if (!letter) continue;
+        const x = padding + c * cellSize;
+        const y = padding + r * cellSize;
 
         const num = numbers[r] ? numbers[r][c] : null;
         if (num) {
@@ -447,11 +479,23 @@
     return normalizeEntries(raw);
   }
 
+  function syncCellFillState(input) {
+    if (!input) return;
+    const td = input.closest('td');
+    if (!td || !td.classList.contains('letter')) return;
+    if ((input.value || '').trim()) {
+      td.classList.add('filled');
+    } else {
+      td.classList.remove('filled');
+    }
+  }
+
   function handleCellInput(event) {
     if (!currentPuzzle || currentPuzzle.showingAnswers) return;
     const input = event.target;
     const normalized = input.value.toUpperCase().replace(/[^A-Z]/g, '');
     input.value = normalized.slice(-1);
+    syncCellFillState(input);
     const cellId = input.dataset.cell;
     if (!input.value) {
       delete currentPuzzle.userEntries[cellId];
@@ -483,6 +527,8 @@
           return;
         }
 
+        td.className = 'letter';
+
         const num = numbers[r][c];
         if (num) {
           const numSpan = document.createElement('span');
@@ -502,6 +548,7 @@
         input.addEventListener('focus', () => input.select());
         currentPuzzle.inputs.push(input);
         td.appendChild(input);
+        syncCellFillState(input);
         tr.appendChild(td);
       });
       table.appendChild(tr);
@@ -556,6 +603,7 @@
         input.value = currentPuzzle.userEntries[cellId] || '';
         input.readOnly = false;
       }
+      syncCellFillState(input);
       input.classList.remove('correct', 'incorrect');
     });
 
@@ -570,6 +618,7 @@
     currentPuzzle.inputs.forEach(input => {
       input.readOnly = false;
       input.value = '';
+      syncCellFillState(input);
       input.classList.remove('correct', 'incorrect');
     });
     document.getElementById('showAnswersBtn').textContent = 'Show Answers';
@@ -679,9 +728,11 @@
 
   document.getElementById('generateBtn').addEventListener('click', generateCrossword);
   document.getElementById('showAnswersBtn').addEventListener('click', toggleAnswers);
-  document.getElementById('resetBtn').addEventListener('click', resetPuzzleInputs);
+  const resetBtn = document.getElementById('resetBtn');
+  if (resetBtn) resetBtn.addEventListener('click', resetPuzzleInputs);
   document.getElementById('printBtn').addEventListener('click', () => window.print());
-  document.getElementById('checkBtn').addEventListener('click', checkPuzzle);
+  const checkBtn = document.getElementById('checkBtn');
+  if (checkBtn) checkBtn.addEventListener('click', checkPuzzle);
   const saveBtn = document.getElementById('savePngBtn');
   if (saveBtn) saveBtn.addEventListener('click', savePuzzleAsPng);
 

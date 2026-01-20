@@ -108,11 +108,13 @@ canvas#colorbyCanvas{display:block;margin:8px 0;max-width:100%}
 input[type="file"]{padding:6px 0}
 
 table.grid.crossword{background:var(--puzzle-bg)}
-table.grid.crossword td{position:relative;font-weight:600;border:3px solid #111;background:var(--puzzle-bg);padding:0}
-table.grid.crossword td.block{background:transparent}
-table.grid.crossword td.block::after{content:'';position:absolute;inset:0;background:repeating-linear-gradient(45deg,rgba(0,0,0,.45),rgba(0,0,0,.45) 6px,transparent 6px,transparent 12px);opacity:.35}
+table.grid.crossword td{position:relative;font-weight:600;border:2px solid #111;background:#fff;padding:0}
+table.grid.crossword td.letter{background:#fff}
+table.grid.crossword td.letter::after{display:none}
+table.grid.crossword td.block{border:none;background:var(--puzzle-bg)}
 table.grid.crossword td .num{position:absolute;left:2px;top:1px;font-size:11px;font-weight:700;color:#111}
 table.grid.crossword td input{width:100%;height:100%;border:none;background:transparent;text-align:center;font-size:18px;font-weight:700;text-transform:uppercase;color:#111;outline:none;padding:0;margin:0}
+table.grid.crossword td.filled input{background:#fff}
 table.grid.crossword td input.correct{color:#0b6e2f}
 table.grid.crossword td input.incorrect{color:#b00020}
 .clues{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:12px}
