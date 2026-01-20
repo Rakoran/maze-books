@@ -438,12 +438,17 @@
       });
 
       const themeSelect = document.getElementById('themeSelect');
+      if (!themeSelect) return;
+      themeSelect.innerHTML = '<option value="" selected>(none)</option>';
       Array.from(themeSet).sort().forEach(theme => {
         const option = document.createElement('option');
         option.value = theme;
         option.textContent = theme.charAt(0).toUpperCase() + theme.slice(1);
         themeSelect.appendChild(option);
       });
+      if (themeSet.size === 0) {
+        updateStatus('No themes available. Use custom words or refresh the page.', 'error');
+      }
     } catch (error) {
       console.error('Failed to load themes:', error);
       updateStatus('Failed to load themes. Please refresh or check the site URL.', 'error');
@@ -489,6 +494,21 @@
       clue: buildClueForItem(item, level, allWords)
     }));
     return normalizeEntries(raw);
+  }
+
+  function parseCustomWords(value) {
+    if (!value) return [];
+    return value
+      .split(/[\n,]+/)
+      .map(entry => entry.trim())
+      .filter(Boolean)
+      .map(entry => {
+        const [wordPart, cluePart] = entry.split(/\s*-\s*|[:=]/);
+        const word = normalizeWord(wordPart);
+        const clue = cluePart ? cluePart.trim() : '';
+        return word ? { word, clue } : null;
+      })
+      .filter(Boolean);
   }
 
   function ensureCluesForItem(item) {
@@ -661,122 +681,122 @@
   }
 
   function getClueTemplates(tag, length, levelKey, word) {
-    if (!td || !td.classList.contains('letter')) return;
-    if ((input.value || '').trim()) {
-      td.classList.add('filled');
+    const lower = String(tag || 'Theme').toLowerCase();
+    const themed = {
+      animals: [
         {
-          level1: `A farm animal. A is for ___.`,
-          level2: `An animal that can be a pet.`,
-          level3: `A type of animal.`,
-          level4: `An animal often seen in stories.`,
-          level5: `A common creature in folklore.`
+          level1: 'A farm animal. A is for ___.',
+          level2: 'An animal that can be a pet.',
+          level3: 'A type of animal.',
+          level4: 'An animal often seen in stories.',
+          level5: 'A common creature in folklore.'
         },
         {
-          level1: `A wild animal.`,
-          level2: `A creature that lives outdoors.`,
-          level3: `A kind of animal.`,
-          level4: `A wild creature often studied.`,
-          level5: `A creature of myth or nature.`
+          level1: 'A wild animal.',
+          level2: 'A creature that lives outdoors.',
+          level3: 'A kind of animal.',
+          level4: 'A wild creature often studied.',
+          level5: 'A creature of lore.'
         }
-  function handleCellInput(event) {
-    if (!currentPuzzle || currentPuzzle.showingAnswers) return;
+      ],
+      fantasy: [
         {
-          level1: `A magic word.`,
-          level2: `Something from a fairy tale.`,
-          level3: `A fantasy story word.`,
-          level4: `A myth or legend item.`,
-          level5: `A mystical or arcane word.`
+          level1: 'A magic word.',
+          level2: 'Something from a fairy tale.',
+          level3: 'A fantasy story word.',
+          level4: 'A myth or legend item.',
+          level5: 'A mystical or arcane word.'
         },
         {
-          level1: `A magical creature.`,
-          level2: `A creature from a fantasy tale.`,
-          level3: `A mythical creature.`,
-          level4: `A legend creature.`,
-          level5: `A creature of lore.`
+          level1: 'A magical creature.',
+          level2: 'A creature from a fantasy tale.',
+          level3: 'A mythical creature.',
+          level4: 'A legend creature.',
+          level5: 'A creature of lore.'
         }
-    if (!input.value) {
-      delete currentPuzzle.userEntries[cellId];
+      ],
+      weather: [
         {
-          level1: `A kind of weather.`,
-          level2: `Weather you can see outside.`,
-          level3: `A weather condition.`,
-          level4: `A forecast detail.`,
-          level5: `A meteorology term.`
+          level1: 'A kind of weather.',
+          level2: 'Weather you can see outside.',
+          level3: 'A weather condition.',
+          level4: 'A forecast detail.',
+          level5: 'A meteorology term.'
         },
         {
-          level1: `The sky looks this way.`,
-          level2: `Sky condition.`,
-          level3: `A sky condition word.`,
-          level4: `A weather description.`,
-          level5: `A sky term.`
+          level1: 'The sky looks this way.',
+          level2: 'Sky condition.',
+          level3: 'A sky condition word.',
+          level4: 'A weather description.',
+          level5: 'A sky term.'
         }
+      ],
+      space: [
+        {
+          level1: 'Something in space.',
+          level2: 'Something seen in the night sky.',
+          level3: 'A space object.',
+          level4: 'A solar system term.',
+          level5: 'A celestial object.'
+        },
+        {
+          level1: 'A starry-sky thing.',
+          level2: 'A night-sky object.',
+          level3: 'A space-related word.',
+          level4: 'An astronomy word.',
+          level5: 'A cosmic term.'
+        }
+      ],
+      food: [
+        {
+          level1: 'Something you can eat.',
+          level2: 'A food you might have.',
+          level3: 'A type of food.',
+          level4: 'A common meal item.',
+          level5: 'A culinary word.'
+        },
+        {
+          level1: 'A yummy food.',
+          level2: 'A kitchen item to eat.',
+          level3: 'A food word.',
+          level4: 'A food term.',
+          level5: 'A gastronomy word.'
+        }
+      ],
+      vehicles: [
+        {
+          level1: 'Something you can ride in.',
+          level2: 'A way to travel.',
+          level3: 'A type of vehicle.',
+          level4: 'A transport term.',
+          level5: 'A transit word.'
+        },
+        {
+          level1: 'A ride you can take.',
+          level2: 'A vehicle you might see.',
+          level3: 'A transport word.',
+          level4: 'A travel term.',
+          level5: 'A mobility word.'
+        }
+      ],
+      ocean: [
+        {
+          level1: 'Something from the sea.',
+          level2: 'A sea or ocean word.',
+          level3: 'An ocean-related word.',
+          level4: 'A marine term.',
+          level5: 'A nautical word.'
+        },
+        {
+          level1: 'A sea creature or thing.',
+          level2: 'A thing found in the ocean.',
+          level3: 'A marine word.',
+          level4: 'A sea-related term.',
+          level5: 'An ocean term.'
+        }
+      ]
+    };
 
-  function renderGrid() {
-        {
-          level1: `Something in space.`,
-          level2: `Something seen in the night sky.`,
-          level3: `A space object.`,
-          level4: `A solar system term.`,
-          level5: `A celestial object.`
-        },
-        {
-          level1: `A starry-sky thing.`,
-          level2: `A night-sky object.`,
-          level3: `A space-related word.`,
-          level4: `An astronomy word.`,
-          level5: `A cosmic term.`
-        }
-    const table = document.createElement('table');
-    table.className = 'grid crossword';
-        {
-          level1: `Something you can eat.`,
-          level2: `A food you might have.`,
-          level3: `A type of food.`,
-          level4: `A common meal item.`,
-          level5: `A culinary word.`
-        },
-        {
-          level1: `A yummy food.`,
-          level2: `A kitchen item to eat.`,
-          level3: `A food word.`,
-          level4: `A food term.`,
-          level5: `A gastronomy word.`
-        }
-      const tr = document.createElement('tr');
-      row.forEach((letter, c) => {
-        {
-          level1: `Something you can ride in.`,
-          level2: `A way to travel.`,
-          level3: `A type of vehicle.`,
-          level4: `A transport term.`,
-          level5: `A transit word.`
-        },
-        {
-          level1: `A ride you can take.`,
-          level2: `A vehicle you might see.`,
-          level3: `A transport word.`,
-          level4: `A travel term.`,
-          level5: `A mobility word.`
-        }
-        }
-
-        {
-          level1: `Something from the sea.`,
-          level2: `A sea or ocean word.`,
-          level3: `An ocean-related word.`,
-          level4: `A marine term.`,
-          level5: `A nautical word.`
-        },
-        {
-          level1: `A sea creature or thing.`,
-          level2: `A thing found in the ocean.`,
-          level3: `A marine word.`,
-          level4: `A sea-related term.`,
-          level5: `An ocean term.`
-        }
-          numSpan.className = 'num';
-          numSpan.textContent = num;
-          td.appendChild(numSpan);
     const pool = themed[lower]
       ? themed[lower].map(entry => entry[levelKey] || entry.level3)
       : [
@@ -804,7 +824,75 @@
 
   function isPlural(word) {
     return word.length > 2 && word.endsWith('S') && !word.endsWith('SS');
+  }
 
+  function syncCellFillState(input) {
+    if (!input) return;
+    const td = input.closest('td');
+    if (!td || !td.classList.contains('letter')) return;
+    if ((input.value || '').trim()) {
+      td.classList.add('filled');
+    } else {
+      td.classList.remove('filled');
+    }
+  }
+
+  function handleCellInput(event) {
+    if (!currentPuzzle || currentPuzzle.showingAnswers) return;
+    const input = event.target;
+    const normalized = input.value.toUpperCase().replace(/[^A-Z]/g, '');
+    input.value = normalized.slice(-1);
+    syncCellFillState(input);
+    const cellId = input.dataset.cell;
+    if (!input.value) {
+      delete currentPuzzle.userEntries[cellId];
+    } else {
+      currentPuzzle.userEntries[cellId] = input.value;
+    }
+    input.classList.remove('correct', 'incorrect');
+  }
+
+  function renderGrid() {
+    if (!currentPuzzle) return;
+
+    const gridDiv = document.getElementById('grid');
+    gridDiv.innerHTML = '';
+
+    const table = document.createElement('table');
+    table.className = 'grid crossword';
+    currentPuzzle.inputs = [];
+
+    const { grid, numbers } = currentPuzzle;
+
+    grid.forEach((row, r) => {
+      const tr = document.createElement('tr');
+      row.forEach((letter, c) => {
+        const td = document.createElement('td');
+        if (!letter) {
+          td.className = 'block';
+          tr.appendChild(td);
+          return;
+        }
+
+        td.className = 'letter';
+
+        const num = numbers[r][c];
+        if (num) {
+          const numSpan = document.createElement('span');
+          numSpan.className = 'num';
+          numSpan.textContent = num;
+          td.appendChild(numSpan);
+        }
+
+        const input = document.createElement('input');
+        input.type = 'text';
+        input.maxLength = 1;
+        input.dataset.answer = letter;
+        input.dataset.cell = `${r}-${c}`;
+        input.value = currentPuzzle.userEntries[input.dataset.cell] || '';
+        input.autocomplete = 'off';
+        input.addEventListener('input', handleCellInput);
+        input.addEventListener('focus', () => input.select());
         currentPuzzle.inputs.push(input);
         td.appendChild(input);
         syncCellFillState(input);
@@ -920,9 +1008,12 @@
     const theme = document.getElementById('themeSelect').value;
     const level = document.getElementById('levelSelect').value;
     const sizeInput = parseInt(document.getElementById('sizeInput').value, 10);
+    const customInput = document.getElementById('customWords');
+    const customWords = customInput ? parseCustomWords(customInput.value) : [];
+    const usingCustom = customWords.length > 0;
 
-    if (!theme) {
-      updateStatus('Please select a theme', 'error');
+    if (!theme && !usingCustom) {
+      updateStatus('Please select a theme or enter custom words.', 'error');
       return;
     }
 
@@ -930,10 +1021,18 @@
 
     setTimeout(() => {
       try {
-        const wordList = generateWordList(theme, level, 25);
+        const wordList = usingCustom
+          ? customWords.map(item => ({
+              word: item.word,
+              clue: item.clue,
+              clues: null,
+              tags: theme ? [theme] : [],
+              level: parseInt(level, 10) || 3
+            }))
+          : generateWordList(theme, level, 25);
         const entries = buildEntries(wordList, level);
         if (entries.length === 0) {
-          updateStatus('Not enough words for this theme/level.', 'error');
+          updateStatus('Not enough words to build a crossword.', 'error');
           return;
         }
 
