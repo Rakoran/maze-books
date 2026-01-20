@@ -1,395 +1,239 @@
-// Simple crossword generator for the web UI
-(function(){
-  let THEMES = {};
-  let AGE_PRESETS = {};
-
-  function shuffle(a){for(let i=a.length-1;i>0;i--){let j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a}
-
-  function applyBackground(value){
-    document.documentElement.style.setProperty('--puzzle-bg', value || 'transparent');
-  }
+// Golden-standard crossword generator and UI
+(function () {
+  let currentPuzzle = null;
+  let wordDatabase = [];
 
   const DIRS = [
-    {dr:0, dc:1, name:'across'},
-    {dr:1, dc:0, name:'down'}
+    { dr: 0, dc: 1 },
+    { dr: 1, dc: 0 }
   ];
+  const MAX_ATTEMPTS = 60;
 
-  function makeEmptyGrid(n){return Array.from({length:n},()=>Array.from({length:n},()=>null))}
+  function applyBackground(value) {
+    const resolved = value && value !== 'default' ? value : '#ffffff';
+    document.documentElement.style.setProperty('--puzzle-bg', resolved);
+  }
 
-  function canPlace(grid, word, startR, startC, dr, dc){
-    const n = grid.length;
-    const endR = startR + dr*(word.length-1);
-    const endC = startC + dc*(word.length-1);
-    if(startR<0||startC<0||endR<0||endC<0||startR>=n||startC>=n||endR>=n||endC>=n) return false;
+  function shuffle(arr) {
+    for (let i = arr.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [arr[i], arr[j]] = [arr[j], arr[i]];
+    }
+    return arr;
+  }
 
-    // cell before and after must be empty to avoid run-ons
-    const prevR = startR - dr, prevC = startC - dc;
-    const nextR = endR + dr, nextC = endC + dc;
-    if(inBounds(n, prevR, prevC) && grid[prevR][prevC]) return false;
-    if(inBounds(n, nextR, nextC) && grid[nextR][nextC]) return false;
+  function makeEmptyGrid(size) {
+    return Array.from({ length: size }, () => Array(size).fill(null));
+  }
 
-    for(let i=0;i<word.length;i++){
-      const rr = startR + dr*i, cc = startC + dc*i;
-      const ch = grid[rr][cc];
-      if(ch && ch !== word[i]) return false;
-      // prevent side-by-side touching when this cell is newly placed
-      if(!ch){
-        if(dr===0){
-          if(inBounds(n, rr-1, cc) && grid[rr-1][cc]) return false;
-          if(inBounds(n, rr+1, cc) && grid[rr+1][cc]) return false;
-        }else{
-          if(inBounds(n, rr, cc-1) && grid[rr][cc-1]) return false;
-          if(inBounds(n, rr, cc+1) && grid[rr][cc+1]) return false;
+  function inBounds(size, r, c) {
+    return r >= 0 && c >= 0 && r < size && c < size;
+  }
+
+  function canPlace(grid, word, startR, startC, dr, dc) {
+    const size = grid.length;
+    const endR = startR + dr * (word.length - 1);
+    const endC = startC + dc * (word.length - 1);
+
+    if (!inBounds(size, startR, startC) || !inBounds(size, endR, endC)) {
+      return false;
+    }
+
+    const prevR = startR - dr;
+    const prevC = startC - dc;
+    const nextR = endR + dr;
+    const nextC = endC + dc;
+
+    if (inBounds(size, prevR, prevC) && grid[prevR][prevC]) return false;
+    if (inBounds(size, nextR, nextC) && grid[nextR][nextC]) return false;
+
+    for (let i = 0; i < word.length; i++) {
+      const rr = startR + dr * i;
+      const cc = startC + dc * i;
+      const cell = grid[rr][cc];
+
+      if (cell && cell !== word[i]) return false;
+
+      if (!cell) {
+        if (dr === 0) {
+          if ((inBounds(size, rr - 1, cc) && grid[rr - 1][cc]) || (inBounds(size, rr + 1, cc) && grid[rr + 1][cc])) {
+            return false;
+          }
+        } else {
+          if ((inBounds(size, rr, cc - 1) && grid[rr][cc - 1]) || (inBounds(size, rr, cc + 1) && grid[rr][cc + 1])) {
+            return false;
+          }
         }
       }
     }
+
     return true;
   }
 
-  function inBounds(n,r,c){return r>=0&&c>=0&&r<n&&c<n}
-
-  function placeWord(grid, word, startR, startC, dr, dc){
-    for(let i=0;i<word.length;i++){
-      const rr = startR + dr*i, cc = startC + dc*i;
+  function placeWord(grid, word, startR, startC, dr, dc) {
+    for (let i = 0; i < word.length; i++) {
+      const rr = startR + dr * i;
+      const cc = startC + dc * i;
       grid[rr][cc] = word[i];
     }
   }
 
-  function countIntersections(grid, word, startR, startC, dr, dc){
-    let count = 0;
-    for(let i=0;i<word.length;i++){
-      const rr = startR + dr*i, cc = startC + dc*i;
-      if(grid[rr][cc]) count++;
+  function countIntersections(grid, word, startR, startC, dr, dc) {
+    let hits = 0;
+    for (let i = 0; i < word.length; i++) {
+      const rr = startR + dr * i;
+      const cc = startC + dc * i;
+      if (grid[rr][cc]) hits++;
     }
-    return count;
+    return hits;
   }
 
-  function countInnerIntersections(grid, word, startR, startC, dr, dc){
-    let count = 0;
-    for(let i=1;i<word.length-1;i++){
-      const rr = startR + dr*i, cc = startC + dc*i;
-      if(grid[rr][cc]) count++;
-    }
-    return count;
+  function normalizeEntries(entries) {
+    return entries
+      .map(e => ({
+        answer: (e.answer || '').toUpperCase().replace(/[^A-Z]/g, ''),
+        clue: e.clue || ''
+      }))
+      .filter(e => e.answer.length >= 3);
   }
 
-  function computeGridSize(words){
-    const longest = Math.max(6, ...words.map(w=>w.answer.length));
+  function computeGridSize(words) {
+    const longest = Math.max(6, ...words.map(w => w.answer.length));
     const byCount = Math.ceil(Math.sqrt(words.length)) * 4;
     return Math.max(10, longest + 2, byCount);
   }
 
-  function generate(entries, size){
-    const words = entries.map(e=>({answer:e.answer.toUpperCase().replace(/[^A-Z]/g,''), clue:e.clue || ''}))
-      .filter(e=>e.answer.length>1);
-    if(words.length===0) return null;
-    const n = size || computeGridSize(words);
-    let bestResult = null;
-
-    for(let attempt=0; attempt<30; attempt++){
-      const grid = makeEmptyGrid(n);
-      const placements = [];
-      const order = shuffle(words.slice()).sort((a,b)=>b.answer.length-a.answer.length);
-      const first = order.shift();
-      const startR = Math.floor(n/2);
-      const startC = Math.floor((n - first.answer.length)/2);
-      if(!canPlace(grid, first.answer, startR, startC, 0, 1)) continue;
-      placeWord(grid, first.answer, startR, startC, 0, 1);
-      placements.push({answer:first.answer, clue:first.clue, r:startR, c:startC, dr:0, dc:1});
-
-      for(const entry of order){
-        let best = null;
-        for(let r=0;r<n;r++){
-          for(let c=0;c<n;c++){
-            const cell = grid[r][c];
-            if(!cell) continue;
-            for(let i=0;i<entry.answer.length;i++){
-              if(entry.answer[i] !== cell) continue;
-              for(const dir of DIRS){
-                const sr = r - dir.dr * i;
-                const sc = c - dir.dc * i;
-                if(!canPlace(grid, entry.answer, sr, sc, dir.dr, dir.dc)) continue;
-                const hits = countIntersections(grid, entry.answer, sr, sc, dir.dr, dir.dc);
-                const innerHits = (entry.answer.length <= 2) ? hits : countInnerIntersections(grid, entry.answer, sr, sc, dir.dr, dir.dc);
-                if(innerHits < 1) continue;
-                if(!best || innerHits > best.hits){
-                  best = {r:sr, c:sc, dr:dir.dr, dc:dir.dc, hits: innerHits};
-                }
-              }
-            }
-          }
-        }
-        // fallback: allow end intersections
-        if(!best){
-          for(let r=0;r<n;r++){
-            for(let c=0;c<n;c++){
-              const cell = grid[r][c];
-              if(!cell) continue;
-              for(let i=0;i<entry.answer.length;i++){
-                if(entry.answer[i] !== cell) continue;
-                for(const dir of DIRS){
-                  const sr = r - dir.dr * i;
-                  const sc = c - dir.dc * i;
-                  if(!canPlace(grid, entry.answer, sr, sc, dir.dr, dir.dc)) continue;
-                  const hits = countIntersections(grid, entry.answer, sr, sc, dir.dr, dir.dc);
-                  if(hits < 1) continue;
-                  best = {r:sr, c:sc, dr:dir.dr, dc:dir.dc, hits};
-                  break;
-                }
-                if(best) break;
-              }
-              if(best) break;
-            }
-            if(best) break;
-          }
-        }
-        // final fallback: allow non-intersecting placement
-        if(!best){
-          for(let r=0;r<n;r++){
-            for(let c=0;c<n;c++){
-              for(const dir of DIRS){
-                if(!canPlace(grid, entry.answer, r, c, dir.dr, dir.dc)) continue;
-                best = {r, c, dr:dir.dr, dc:dir.dc, hits:0};
-                break;
-              }
-              if(best) break;
-            }
-            if(best) break;
-          }
-        }
-        if(best){
-          placeWord(grid, entry.answer, best.r, best.c, best.dr, best.dc);
-          placements.push({answer:entry.answer, clue:entry.clue, r:best.r, c:best.c, dr:best.dr, dc:best.dc});
-        }
-      }
-
-      if(!bestResult || placements.length > bestResult.placements.length){
-        bestResult = {grid, placements};
-      }
-      if(bestResult && bestResult.placements.length === words.length) break;
-    }
-
-    return bestResult;
+  function areaOfBounds(bounds) {
+    if (!bounds) return 0;
+    const width = bounds.maxC - bounds.minC + 1;
+    const height = bounds.maxR - bounds.minR + 1;
+    return width * height;
   }
 
-  function generateWithResize(entries){
-    const words = entries.map(e=>({answer:e.answer.toUpperCase().replace(/[^A-Z]/g,''), clue:e.clue || ''}))
-      .filter(e=>e.answer.length>1);
-    if(words.length===0) return null;
-    let size = computeGridSize(words);
-    let best = null;
-    for(let i=0;i<4;i++){
-      const attempt = generate(entries, size);
-      if(attempt && (!best || attempt.placements.length > best.placements.length)){
-        best = attempt;
-      }
-      if(best && best.placements.length === words.length) break;
-      size += 2;
-    }
-    return best;
+  function extendBounds(bounds, r, c, dr, dc, len) {
+    const endR = r + dr * (len - 1);
+    const endC = c + dc * (len - 1);
+    const base = bounds
+      ? { ...bounds }
+      : { minR: r, maxR: r, minC: c, maxC: c };
+
+    const next = {
+      minR: Math.min(base.minR, r, endR),
+      maxR: Math.max(base.maxR, r, endR),
+      minC: Math.min(base.minC, c, endC),
+      maxC: Math.max(base.maxC, c, endC)
+    };
+    next.area = areaOfBounds(next);
+    return next;
   }
 
-  function computeNumbers(grid){
-    const n = grid.length;
-    const numbers = Array.from({length:n},()=>Array(n).fill(null));
-    let num = 1;
-    for(let r=0;r<n;r++){
-      for(let c=0;c<n;c++){
-        if(!grid[r][c]) continue;
-        const startsAcross = (c===0 || !grid[r][c-1]) && (c+1<n && grid[r][c+1]);
-        const startsDown = (r===0 || !grid[r-1][c]) && (r+1<n && grid[r+1][c]);
-        if(startsAcross || startsDown){
-          numbers[r][c] = num++;
-        }
+  function trimGrid(grid, bounds) {
+    if (!bounds) return grid;
+    const height = bounds.maxR - bounds.minR + 1;
+    const width = bounds.maxC - bounds.minC + 1;
+    const trimmed = Array.from({ length: height }, () => Array(width).fill(null));
+
+    for (let r = bounds.minR; r <= bounds.maxR; r++) {
+      for (let c = bounds.minC; c <= bounds.maxC; c++) {
+        trimmed[r - bounds.minR][c - bounds.minC] = grid[r][c];
       }
     }
-    return numbers;
+    return trimmed;
   }
 
-  function renderGrid(el, grid, numbers, showAnswers){
-    const n = grid.length;
-    const table = document.createElement('table');
-    table.className = 'grid crossword';
-    for(let r=0;r<n;r++){
-      const tr = document.createElement('tr');
-      for(let c=0;c<n;c++){
-        const td = document.createElement('td');
-        const letter = grid[r][c];
-        if(!letter){
-          td.className = 'block';
-        }else{
-          td.dataset.r = r;
-          td.dataset.c = c;
-          const num = numbers[r][c];
-          if(num){
-            const s = document.createElement('span');
-            s.className = 'num';
-            s.textContent = num;
-            td.appendChild(s);
-          }
-          const l = document.createElement('span');
-          l.className = 'letter';
-          l.textContent = showAnswers ? letter : '';
-          td.appendChild(l);
-        }
-        tr.appendChild(td);
-      }
-      table.appendChild(tr);
+  function shiftPlacements(placements, bounds) {
+    if (!bounds) return placements.slice();
+    const offsetR = bounds.minR;
+    const offsetC = bounds.minC;
+    return placements.map(p => ({
+      answer: p.answer,
+      clue: p.clue,
+      r: p.r - offsetR,
+      c: p.c - offsetC,
+      dr: p.dr,
+      dc: p.dc
+    }));
+  }
+
+  function finalizePuzzle(grid, placements, bounds) {
+    if (!placements.length || !bounds) return null;
+    return {
+      grid: trimGrid(grid, bounds),
+      placements: shiftPlacements(placements, bounds),
+      bounds: { ...bounds }
+    };
+  }
+
+  function savePuzzleAsPng() {
+    if (!currentPuzzle || !currentPuzzle.grid || !currentPuzzle.grid.length) {
+      updateStatus('Generate a crossword before saving.', 'error');
+      return;
     }
-    el.innerHTML = '';
-    el.appendChild(table);
-  }
 
-  function renderClues(acrossEl, downEl, placements, numbers){
-    const byNumber = placements.map(p=>{
-      const num = numbers[p.r][p.c];
-      const dir = (p.dr===0 && p.dc===1) ? 'across' : 'down';
-      return {num, dir, clue:p.clue || p.answer};
-    }).filter(x=>x.num);
-
-    const across = byNumber.filter(x=>x.dir==='across').sort((a,b)=>a.num-b.num);
-    const down = byNumber.filter(x=>x.dir==='down').sort((a,b)=>a.num-b.num);
-
-    acrossEl.innerHTML = across.map(x=>`<li><strong>${x.num}</strong> ${escapeHtml(x.clue)}</li>`).join('');
-    downEl.innerHTML = down.map(x=>`<li><strong>${x.num}</strong> ${escapeHtml(x.clue)}</li>`).join('');
-  }
-
-  function escapeHtml(s){
-    return String(s).replace(/[&<>"']/g, ch=>({
-      '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'
-    }[ch]));
-  }
-
-  function parseCustom(text){
-    const lines = text.split(/\n+/).map(l=>l.trim()).filter(Boolean);
-    const out = [];
-    for(const line of lines){
-      const parts = line.split(/\s*-\s*/);
-      const answer = (parts[0]||'').trim();
-      const clue = parts.slice(1).join(' - ').trim();
-      if(answer) out.push({answer, clue});
-    }
-    return out;
-  }
-
-  function init(){
-    const themeSelect = document.getElementById('themeSelect');
-    fetch('themes.json').then(r=>r.json()).then(data=>{
-      THEMES = data.crosswordThemes || {};
-      AGE_PRESETS = data.agePresets || {};
-      Object.keys(THEMES).forEach(k=>{
-        const o = document.createElement('option');
-        o.value = k; o.textContent = k;
-        themeSelect.appendChild(o);
-      });
-      const ageSelect = document.getElementById('ageSelect');
-      if(ageSelect && AGE_PRESETS){
-        Object.keys(AGE_PRESETS).forEach(k=>{
-          const opt = document.createElement('option');
-          opt.value = k;
-          opt.textContent = k;
-          ageSelect.appendChild(opt);
-        });
-      }
-    }).catch(()=>{THEMES = {}});
-
-    document.getElementById('generate').addEventListener('click',()=>{
-      applyBackground(document.getElementById('bgSelect').value);
-      const theme = themeSelect.value;
-      const custom = document.getElementById('custom').value.trim();
-      const sizeValue = document.getElementById('size').value;
-      const age = document.getElementById('ageSelect').value;
-
-      let entries = [];
-      if(theme && THEMES[theme]) entries = entries.concat(THEMES[theme]);
-      if(custom) entries = entries.concat(parseCustom(custom));
-      if(entries.length===0){alert('Add words or pick a theme'); return}
-
-      const ageMap = AGE_PRESETS || {};
-      if(age && ageMap[age]){
-        if(ageMap[age].maxWords && entries.length > ageMap[age].maxWords){
-          entries = shuffle(entries).slice(0, ageMap[age].maxWords);
-        }
-      }
-      if(sizeValue !== 'all'){
-        const limit = parseInt(sizeValue,10);
-        if(limit && entries.length > limit){
-          entries = shuffle(entries).slice(0, limit);
-        }
-      }
-
-      const result = generateWithResize(entries);
-      if(!result){alert('Could not build crossword. Try fewer or shorter words.'); return}
-      const numbers = computeNumbers(result.grid);
-      renderGrid(document.getElementById('gridWrap'), result.grid, numbers, false);
-      renderClues(document.getElementById('acrossList'), document.getElementById('downList'), result.placements, numbers);
-      window.__last = {grid:result.grid, numbers, placements:result.placements, theme};
-      window.__showAnswers = false;
-      document.getElementById('toggleAnswers').textContent = 'Show Answers';
-    });
-
-    document.getElementById('toggleAnswers').addEventListener('click',()=>{
-      const last = window.__last; if(!last){alert('Generate first'); return}
-      window.__showAnswers = !window.__showAnswers;
-      renderGrid(document.getElementById('gridWrap'), last.grid, last.numbers, window.__showAnswers);
-      document.getElementById('toggleAnswers').textContent = window.__showAnswers ? 'Hide Answers' : 'Show Answers';
-    });
-
-    document.getElementById('bgSelect').addEventListener('change',()=>{
-      applyBackground(document.getElementById('bgSelect').value);
-    });
-
-    document.getElementById('savePng').addEventListener('click',()=>{
-      const last = window.__last; if(!last){alert('Generate first'); return}
-      saveGridAsPng(last.grid, last.numbers, !!window.__showAnswers, document.getElementById('bgSelect').value);
-    });
-  }
-
-  function saveGridAsPng(grid, numbers, showAnswers, bg){
-    const n = grid.length;
-    const rootStyle = getComputedStyle(document.documentElement).getPropertyValue('--cell') || '30px';
-    const cell = parseInt(rootStyle,10) || 30;
-    const padding = 8;
+    const grid = currentPuzzle.grid;
+    const rows = grid.length;
+    const cols = grid[0].length;
+    const style = getComputedStyle(document.documentElement);
+    const cellVar = (style.getPropertyValue('--cell') || '').trim();
+    const cellSize = parseInt(cellVar, 10) || 30;
+    const padding = 12;
     const canvas = document.createElement('canvas');
-    canvas.width = n * cell + padding*2;
-    canvas.height = n * cell + padding*2;
+    canvas.width = cols * cellSize + padding * 2;
+    canvas.height = rows * cellSize + padding * 2;
     const ctx = canvas.getContext('2d');
 
-    if(bg && bg !== 'transparent'){
+    const bg = (style.getPropertyValue('--puzzle-bg') || '').trim();
+    if (bg && bg !== 'transparent') {
       ctx.fillStyle = bg;
-      ctx.fillRect(0,0,canvas.width,canvas.height);
+    } else {
+      ctx.fillStyle = '#ffffff';
     }
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-    const numFont = Math.max(10, Math.floor(cell*0.35));
-    const letterFont = Math.floor(cell*0.6);
-    for(let r=0;r<n;r++){
-      for(let c=0;c<n;c++){
-        const x = padding + c*cell;
-        const y = padding + r*cell;
+    const numbers = currentPuzzle.numbers || [];
+    const showAnswers = !!currentPuzzle.showingAnswers;
+    const numFont = Math.max(10, Math.floor(cellSize * 0.35));
+    const letterFont = Math.floor(cellSize * 0.65);
+
+    for (let r = 0; r < rows; r++) {
+      for (let c = 0; c < cols; c++) {
         const letter = grid[r][c];
-        if(!letter) continue;
-        ctx.strokeStyle = '#111';
-        ctx.lineWidth = 3;
-        ctx.strokeRect(x, y, cell, cell);
-        const num = numbers[r][c];
-        if(num){
+        const x = padding + c * cellSize;
+        const y = padding + r * cellSize;
+
+        if (!letter) {
           ctx.fillStyle = '#111';
-          ctx.font = `${numFont}px sans-serif`;
+          ctx.fillRect(x, y, cellSize, cellSize);
+          continue;
+        }
+
+        ctx.fillStyle = '#fff';
+        ctx.fillRect(x, y, cellSize, cellSize);
+        ctx.strokeStyle = '#111';
+        ctx.lineWidth = 2;
+        ctx.strokeRect(x, y, cellSize, cellSize);
+
+        const num = numbers[r] ? numbers[r][c] : null;
+        if (num) {
+          ctx.fillStyle = '#111';
+          ctx.font = `${numFont}px Segoe UI, Arial, sans-serif`;
           ctx.textAlign = 'left';
           ctx.textBaseline = 'top';
           ctx.fillText(String(num), x + 2, y + 1);
         }
-        if(showAnswers){
+
+        if (showAnswers) {
           ctx.fillStyle = '#111';
-          ctx.font = `${letterFont}px sans-serif`;
+          ctx.font = `${letterFont}px Segoe UI, Arial, sans-serif`;
           ctx.textAlign = 'center';
           ctx.textBaseline = 'middle';
-          ctx.fillText(letter, x + cell/2, y + cell/2 + 1);
+          ctx.fillText(letter, x + cellSize / 2, y + cellSize / 2 + 1);
         }
       }
     }
 
-    canvas.toBlob(function(blob){
+    canvas.toBlob(blob => {
+      if (!blob) return;
       const url = URL.createObjectURL(blob);
       const a = document.createElement('a');
       a.href = url;
@@ -401,5 +245,453 @@
     }, 'image/png');
   }
 
-  document.addEventListener('DOMContentLoaded', init);
+  function findBestPlacement(grid, entry, bounds) {
+    const size = grid.length;
+    const baseArea = areaOfBounds(bounds);
+    let best = null;
+
+    for (let r = 0; r < size; r++) {
+      for (let c = 0; c < size; c++) {
+        const cell = grid[r][c];
+        if (!cell) continue;
+        for (let i = 0; i < entry.answer.length; i++) {
+          if (entry.answer[i] !== cell) continue;
+          for (const dir of DIRS) {
+            const sr = r - dir.dr * i;
+            const sc = c - dir.dc * i;
+            if (!canPlace(grid, entry.answer, sr, sc, dir.dr, dir.dc)) continue;
+            const hits = countIntersections(grid, entry.answer, sr, sc, dir.dr, dir.dc);
+            if (hits < 1 || hits > 2) continue;
+            const candidateBounds = extendBounds(bounds, sr, sc, dir.dr, dir.dc, entry.answer.length);
+            const areaIncrease = candidateBounds.area - baseArea;
+            const center = size / 2;
+            const span = Math.abs(sr - center) + Math.abs(sc - center);
+
+            if (
+              !best ||
+              areaIncrease < best.areaIncrease ||
+              (areaIncrease === best.areaIncrease && hits < best.hits) ||
+              (areaIncrease === best.areaIncrease && hits === best.hits && span < best.span)
+            ) {
+              best = {
+                r: sr,
+                c: sc,
+                dr: dir.dr,
+                dc: dir.dc,
+                hits,
+                span,
+                areaIncrease,
+                newBounds: candidateBounds
+              };
+            }
+          }
+        }
+      }
+    }
+
+    return best;
+  }
+
+  function buildPuzzle(words, preferredSize) {
+    if (!words.length) return null;
+    const size = preferredSize || computeGridSize(words);
+    let bestResult = null;
+
+    for (let attempt = 0; attempt < MAX_ATTEMPTS; attempt++) {
+      const grid = makeEmptyGrid(size);
+      const placements = [];
+      const order = shuffle(words.slice()).sort((a, b) => b.answer.length - a.answer.length);
+      const first = order.shift();
+      const startR = Math.floor(size / 2);
+      const startC = Math.floor((size - first.answer.length) / 2);
+      if (!canPlace(grid, first.answer, startR, startC, 0, 1)) continue;
+      placeWord(grid, first.answer, startR, startC, 0, 1);
+      placements.push({ answer: first.answer, clue: first.clue, r: startR, c: startC, dr: 0, dc: 1 });
+      let bounds = extendBounds(null, startR, startC, 0, 1, first.answer.length);
+
+      for (const entry of order) {
+        const best = findBestPlacement(grid, entry, bounds);
+        if (!best) continue; // discard word if no compliant intersection
+        placeWord(grid, entry.answer, best.r, best.c, best.dr, best.dc);
+        placements.push({ answer: entry.answer, clue: entry.clue, r: best.r, c: best.c, dr: best.dr, dc: best.dc });
+        bounds = best.newBounds;
+      }
+
+      const candidate = finalizePuzzle(grid, placements, bounds);
+      if (!candidate) continue;
+
+      if (
+        !bestResult ||
+        candidate.placements.length > bestResult.placements.length ||
+        (candidate.placements.length === bestResult.placements.length && candidate.bounds.area < bestResult.bounds.area)
+      ) {
+        bestResult = candidate;
+      }
+
+      if (bestResult.placements.length === words.length) break;
+    }
+
+    return bestResult;
+  }
+
+  function generateWithResize(words) {
+    if (!words.length) return null;
+    let size = computeGridSize(words);
+    let best = null;
+    for (let i = 0; i < 4; i++) {
+      const attempt = buildPuzzle(words, size);
+      if (
+        attempt &&
+        (!best ||
+          attempt.placements.length > best.placements.length ||
+          (attempt.placements.length === best.placements.length && attempt.bounds.area < best.bounds.area))
+      ) {
+        best = attempt;
+      }
+      if (best && best.placements.length === words.length) break;
+      size += 2;
+    }
+    return best;
+  }
+
+  function computeNumbers(grid) {
+    const rows = grid.length;
+    const cols = grid[0] ? grid[0].length : 0;
+    const numbers = Array.from({ length: rows }, () => Array(cols).fill(null));
+    let num = 1;
+
+    for (let r = 0; r < rows; r++) {
+      for (let c = 0; c < cols; c++) {
+        if (!grid[r][c]) continue;
+        const startsAcross = (c === 0 || !grid[r][c - 1]) && (c + 1 < cols && grid[r][c + 1]);
+        const startsDown = (r === 0 || !grid[r - 1][c]) && (r + 1 < rows && grid[r + 1][c]);
+        if (startsAcross || startsDown) {
+          numbers[r][c] = num++;
+        }
+      }
+    }
+
+    return numbers;
+  }
+
+  function escapeHtml(str) {
+    return String(str || '').replace(/[&<>"']/g, ch => ({
+      '&': '&amp;',
+      '<': '&lt;',
+      '>': '&gt;',
+      '"': '&quot;',
+      "'": '&#39;'
+    })[ch]);
+  }
+
+  async function loadThemes() {
+    try {
+      const response = await fetch('word-themes.json');
+      const data = await response.json();
+      wordDatabase = data.wordDatabase || [];
+      const themeSet = new Set();
+
+      wordDatabase.forEach(entry => {
+        if (entry.tags) {
+          entry.tags.forEach(tag => themeSet.add(tag));
+        }
+      });
+
+      const themeSelect = document.getElementById('themeSelect');
+      Array.from(themeSet).sort().forEach(theme => {
+        const option = document.createElement('option');
+        option.value = theme;
+        option.textContent = theme.charAt(0).toUpperCase() + theme.slice(1);
+        themeSelect.appendChild(option);
+      });
+    } catch (error) {
+      console.error('Failed to load themes:', error);
+      updateStatus('Failed to load themes', 'error');
+    }
+  }
+
+  function generateWordList(theme, level, maxWords = 20) {
+    let filtered = wordDatabase.filter(entry => {
+      const levelNum = parseInt(level, 10);
+      const entryLevel = entry.level || 3;
+      return entry.tags && entry.tags.includes(theme) && entryLevel <= levelNum;
+    });
+
+    if (filtered.length === 0) {
+      filtered = wordDatabase.filter(entry => entry.tags && entry.tags.includes(theme));
+    }
+
+    const unique = Array.from(new Map(filtered.map(e => [e.word, e])).values());
+    const shuffled = unique.sort(() => Math.random() - 0.5);
+    return shuffled
+      .filter(item => (item.word || '').length >= 3)
+      .slice(0, maxWords)
+      .map(e => ({
+        word: e.word,
+        clue: e.clue || `${e.word.length} letters`
+      }));
+  }
+
+  function updateStatus(message, type = 'loading') {
+    const status = document.getElementById('status');
+    if (!status) return;
+    status.textContent = message;
+    status.className = 'status ' + type;
+  }
+
+  function buildEntries(wordList) {
+    const raw = wordList.map(item => ({
+      answer: item.word,
+      clue: item.clue || `${(item.word || '').length} letters`
+    }));
+    return normalizeEntries(raw);
+  }
+
+  function handleCellInput(event) {
+    if (!currentPuzzle || currentPuzzle.showingAnswers) return;
+    const input = event.target;
+    const normalized = input.value.toUpperCase().replace(/[^A-Z]/g, '');
+    input.value = normalized.slice(-1);
+    const cellId = input.dataset.cell;
+    if (!input.value) {
+      delete currentPuzzle.userEntries[cellId];
+    } else {
+      currentPuzzle.userEntries[cellId] = input.value;
+    }
+    input.classList.remove('correct', 'incorrect');
+  }
+
+  function renderGrid() {
+    if (!currentPuzzle) return;
+
+    const gridDiv = document.getElementById('grid');
+    gridDiv.innerHTML = '';
+
+    const table = document.createElement('table');
+    table.className = 'grid crossword';
+    currentPuzzle.inputs = [];
+
+    const { grid, numbers } = currentPuzzle;
+
+    grid.forEach((row, r) => {
+      const tr = document.createElement('tr');
+      row.forEach((letter, c) => {
+        const td = document.createElement('td');
+        if (!letter) {
+          td.className = 'block';
+          tr.appendChild(td);
+          return;
+        }
+
+        const num = numbers[r][c];
+        if (num) {
+          const numSpan = document.createElement('span');
+          numSpan.className = 'num';
+          numSpan.textContent = num;
+          td.appendChild(numSpan);
+        }
+
+        const input = document.createElement('input');
+        input.type = 'text';
+        input.maxLength = 1;
+        input.dataset.answer = letter;
+        input.dataset.cell = `${r}-${c}`;
+        input.value = currentPuzzle.userEntries[input.dataset.cell] || '';
+        input.autocomplete = 'off';
+        input.addEventListener('input', handleCellInput);
+        input.addEventListener('focus', () => input.select());
+        currentPuzzle.inputs.push(input);
+        td.appendChild(input);
+        tr.appendChild(td);
+      });
+      table.appendChild(tr);
+    });
+
+    gridDiv.appendChild(table);
+  }
+
+  function renderClues(placements, numbers) {
+    const cluesDiv = document.getElementById('cluesContent');
+    if (!cluesDiv) return;
+
+    const mapped = placements
+      .map(p => {
+        const num = numbers[p.r][p.c];
+        if (!num) return null;
+        const dir = p.dr === 0 && p.dc === 1 ? 'across' : 'down';
+        return { num, dir, clue: p.clue || p.answer };
+      })
+      .filter(Boolean);
+
+    const across = mapped.filter(c => c.dir === 'across').sort((a, b) => a.num - b.num);
+    const down = mapped.filter(c => c.dir === 'down').sort((a, b) => a.num - b.num);
+
+    const renderList = list => list.map(item => `<li><strong>${item.num}.</strong> ${escapeHtml(item.clue)}</li>`).join('') || '<li>No clues yet</li>';
+
+    cluesDiv.innerHTML = `
+      <div class="clues">
+        <div>
+          <h3>Across</h3>
+          <ol>${renderList(across)}</ol>
+        </div>
+        <div>
+          <h3>Down</h3>
+          <ol>${renderList(down)}</ol>
+        </div>
+      </div>
+    `;
+  }
+
+  function toggleAnswers() {
+    if (!currentPuzzle) return;
+    const show = !currentPuzzle.showingAnswers;
+    currentPuzzle.showingAnswers = show;
+
+    currentPuzzle.inputs.forEach(input => {
+      const cellId = input.dataset.cell;
+      if (show) {
+        input.value = input.dataset.answer;
+        input.readOnly = true;
+      } else {
+        input.value = currentPuzzle.userEntries[cellId] || '';
+        input.readOnly = false;
+      }
+      input.classList.remove('correct', 'incorrect');
+    });
+
+    const button = document.getElementById('showAnswersBtn');
+    button.textContent = show ? 'Hide Answers' : 'Show Answers';
+  }
+
+  function resetPuzzleInputs() {
+    if (!currentPuzzle) return;
+    currentPuzzle.userEntries = {};
+    currentPuzzle.showingAnswers = false;
+    currentPuzzle.inputs.forEach(input => {
+      input.readOnly = false;
+      input.value = '';
+      input.classList.remove('correct', 'incorrect');
+    });
+    document.getElementById('showAnswersBtn').textContent = 'Show Answers';
+    updateStatus('Puzzle cleared. Happy solving!', 'info');
+  }
+
+  function checkPuzzle() {
+    if (!currentPuzzle) return;
+
+    let total = 0;
+    let correct = 0;
+
+    currentPuzzle.inputs.forEach(input => {
+      const expected = input.dataset.answer;
+      const value = (input.value || '').toUpperCase();
+      total++;
+      if (!value) {
+        input.classList.remove('correct', 'incorrect');
+        return;
+      }
+      if (value === expected) {
+        correct++;
+        input.classList.add('correct');
+        input.classList.remove('incorrect');
+      } else {
+        input.classList.add('incorrect');
+        input.classList.remove('correct');
+      }
+    });
+
+    if (correct === total && total > 0) {
+      updateStatus('Great job! Puzzle solved!', 'success');
+    } else {
+      const remaining = total - correct;
+      updateStatus(`Keep going! ${remaining} letters still need attention.`, 'info');
+    }
+  }
+
+  function generateCrossword() {
+    const theme = document.getElementById('themeSelect').value;
+    const level = document.getElementById('levelSelect').value;
+    const sizeInput = parseInt(document.getElementById('sizeInput').value, 10);
+
+    if (!theme) {
+      updateStatus('Please select a theme', 'error');
+      return;
+    }
+
+    updateStatus('Generating crossword...', 'loading');
+
+    setTimeout(() => {
+      try {
+        const wordList = generateWordList(theme, level, 25);
+        const entries = buildEntries(wordList);
+        if (entries.length === 0) {
+          updateStatus('Not enough words for this theme/level.', 'error');
+          return;
+        }
+
+        let puzzle = null;
+        if (!Number.isNaN(sizeInput) && sizeInput > 0) {
+          puzzle = buildPuzzle(entries, sizeInput);
+        }
+        if (!puzzle) {
+          puzzle = generateWithResize(entries);
+        }
+
+        if (!puzzle) {
+          updateStatus('Failed to build crossword. Try a different theme.', 'error');
+          return;
+        }
+
+        const numbers = computeNumbers(puzzle.grid);
+        currentPuzzle = {
+          grid: puzzle.grid,
+          numbers,
+          placements: puzzle.placements,
+          userEntries: {},
+          showingAnswers: false,
+          inputs: []
+        };
+
+        renderGrid();
+        renderClues(puzzle.placements, numbers);
+
+        updateStatus(`Crossword generated with ${puzzle.placements.length} words`, 'success');
+
+        const showBtn = document.getElementById('showAnswersBtn');
+        if (showBtn) {
+          showBtn.disabled = false;
+          showBtn.textContent = 'Show Answers';
+        }
+        const printBtn = document.getElementById('printBtn');
+        if (printBtn) printBtn.disabled = false;
+        const resetBtn = document.getElementById('resetBtn');
+        if (resetBtn) resetBtn.disabled = false;
+        const checkBtn = document.getElementById('checkBtn');
+        if (checkBtn) checkBtn.disabled = false;
+        const saveBtn = document.getElementById('savePngBtn');
+        if (saveBtn) saveBtn.disabled = false;
+      } catch (error) {
+        console.error('Generation error:', error);
+        updateStatus('Failed to generate crossword', 'error');
+      }
+    }, 50);
+  }
+
+  document.getElementById('generateBtn').addEventListener('click', generateCrossword);
+  document.getElementById('showAnswersBtn').addEventListener('click', toggleAnswers);
+  document.getElementById('resetBtn').addEventListener('click', resetPuzzleInputs);
+  document.getElementById('printBtn').addEventListener('click', () => window.print());
+  document.getElementById('checkBtn').addEventListener('click', checkPuzzle);
+  const saveBtn = document.getElementById('savePngBtn');
+  if (saveBtn) saveBtn.addEventListener('click', savePuzzleAsPng);
+
+  const bgSelect = document.getElementById('bgSelect');
+  if (bgSelect) {
+    applyBackground(bgSelect.value);
+    bgSelect.addEventListener('change', event => applyBackground(event.target.value));
+  } else {
+    applyBackground('transparent');
+  }
+
+  loadThemes();
 })();

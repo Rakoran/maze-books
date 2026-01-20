@@ -36,12 +36,11 @@
           <option value="" selected>(none)</option>
         </select>
       </label>
-      <label>Size
-        <input id="size" type="number" min="6" max="40" value="12">
-      </label>
-      <label>Age
-        <select id="ageSelect">
-          <option value="" selected>(none)</option>
+      <label>Level
+        <select id="levelSelect">
+          <option value="3" selected>3 (Upper Elementary)</option>
+          <option value="2">2 (Early Elementary)</option>
+          <option value="1">1 (Preschool/Kindergarten)</option>
         </select>
       </label>
       <label>Custom words (comma separated)
@@ -55,12 +54,6 @@
           <option value="#fff7e6">Warm Cream</option>
           <option value="#f1f6ff">Cool Mist</option>
         </select>
-      </label>
-      <label style="align-self:center">
-        <input id="showGridLines" type="checkbox" checked> Show grid lines
-      </label>
-      <label style="align-self:center">
-        <input id="teacherMode" type="checkbox"> No backward words
       </label>
       <div class="buttons">
         <button type="button" id="generate">Generate</button>

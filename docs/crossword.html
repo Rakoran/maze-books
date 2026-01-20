@@ -21,83 +21,69 @@
       <a href="cryptograms.html">Cryptograms</a>
       <a href="wordladders.html">Word Ladders</a>
       <a href="logicgrids.html">Logic Grids</a>
-          <a href="ispy.html">I-Spy</a>
-          <a href="kakuro.html">Kakuro</a>
-          <a href="battleships.html">Battleships</a>
-          <a href="kenken.html">KenKen</a>
-          <a href="nonograms.html">Nonograms</a>
-          <a href="memory.html">Memory</a>
-          <a href="colorby.html">Color by Number</a>
+      <a href="ispy.html">I-Spy</a>
+      <a href="kakuro.html">Kakuro</a>
+      <a href="battleships.html">Battleships</a>
+      <a href="kenken.html">KenKen</a>
+      <a href="nonograms.html">Nonograms</a>
+      <a href="memory.html">Memory</a>
+      <a href="colorby.html">Color by Number</a>
     </nav>
+
     <h1>Themed Crossword</h1>
+
     <form id="controls">
       <label>Theme
         <select id="themeSelect">
           <option value="" selected>(none)</option>
         </select>
       </label>
-      <label>Words
-        <select id="size">
-          <option value="all" selected>All</option>
-          <option value="5">5</option>
-          <option value="8">8</option>
-          <option value="10">10</option>
-          <option value="12">12</option>
-          <option value="15">15</option>
-          <option value="18">18</option>
+      <label>Level
+        <select id="levelSelect">
+          <option value="3" selected>Level 3 (Advanced)</option>
+          <option value="2">Level 2 (Ages 8-10)</option>
+          <option value="1">Level 1 (Ages 5-7)</option>
         </select>
       </label>
-      <label>Age
-        <select id="ageSelect">
-          <option value="" selected>(none)</option>
-        </select>
-      </label>
-      <label>Custom words (one per line, optional clue after "-")
-        <textarea id="custom" rows="4" placeholder="cat - Purring pet&#10;river - Long flowing water"></textarea>
+      <label>Grid Size
+        <input type="number" id="sizeInput" value="20" min="15" max="30">
       </label>
       <label>Background
         <select id="bgSelect">
+          <option value="#ffffff" selected>White</option>
           <option value="transparent">Transparent</option>
-          <option value="#ffffff">White</option>
           <option value="#f7f7f8">Soft Gray</option>
           <option value="#fff7e6">Warm Cream</option>
           <option value="#f1f6ff">Cool Mist</option>
         </select>
       </label>
       <div class="buttons">
-        <button type="button" id="generate">Generate</button>
-        <button type="button" id="toggleAnswers">Show Answers</button>
-        <button type="button" id="savePng">Save PNG</button>
+        <button type="button" id="generateBtn">Generate</button>
+        <button type="button" id="showAnswersBtn" disabled>Show Answers</button>
+        <button type="button" id="savePngBtn" disabled>Save PNG</button>
+        <button type="button" id="printBtn" disabled>Print</button>
       </div>
     </form>
 
     <section id="output">
-      <div id="gridWrap"></div>
-      <div class="clues">
-        <div>
-          <h3>Across</h3>
-          <ol id="acrossList"></ol>
+      <div class="status" id="status"></div>
+      <div class="content">
+        <div class="grid-container">
+          <div class="grid" id="grid"></div>
         </div>
-        <div>
-          <h3>Down</h3>
-          <ol id="downList"></ol>
+        <div class="clues-container">
+          <div id="cluesContent"></div>
         </div>
       </div>
     </section>
+
+    <div class="buttons">
+      <button type="button" id="resetBtn" disabled>Reset Puzzle</button>
+      <button type="button" id="checkBtn" disabled>Check Solution</button>
+    </div>
   </main>
+
   <script src="crossword.js"></script>
   <script src="howto.js"></script>
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-

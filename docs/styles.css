@@ -1,7 +1,12 @@
-:root{--cell:30px;--puzzle-bg:transparent}
+:root{--cell:30px;--puzzle-bg:#ffffff}
 body{font-family:Segoe UI,system-ui,Arial,sans-serif;margin:0;padding:20px;background:#f7f7f8;color:#111}
 main{max-width:980px;margin:0 auto}
 h1{margin:0 0 12px}
+.status{margin:12px 0;font-weight:600}
+.status.loading{color:#555}
+.status.success{color:#0b6e2f}
+.status.error{color:#b00020}
+.status.info{color:#0b5ed7}
 #controls textarea{padding:6px 8px;font-size:14px;resize:vertical}
 #controls{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
 label{display:flex;flex-direction:column;font-size:14px}
@@ -10,6 +15,7 @@ input,select{padding:6px 8px;font-size:14px}
 button{padding:8px 12px;font-size:14px}
 #output{margin-top:18px;background:var(--puzzle-bg);padding:12px;border-radius:10px}
 #gridWrap{overflow:auto}
+.grid-container{background:var(--puzzle-bg);padding:12px;border-radius:10px;display:inline-block}
 table.grid{border-collapse:collapse;margin:8px 0}
 table.grid td{width:var(--cell);height:var(--cell);text-align:center;border:1px solid #bbb;font-weight:700;font-size:14px;background:#fff}
 table.grid.no-lines td{border-color:transparent}
@@ -101,10 +107,14 @@ table.grid.colorby td{width:var(--cell);height:var(--cell);text-align:center;fon
 canvas#colorbyCanvas{display:block;margin:8px 0;max-width:100%}
 input[type="file"]{padding:6px 0}
 
-table.grid.crossword td{position:relative;font-weight:600;border:3px solid #111;background:#fff}
-table.grid.crossword td.block{background:transparent;border:none}
+table.grid.crossword{background:var(--puzzle-bg)}
+table.grid.crossword td{position:relative;font-weight:600;border:3px solid #111;background:var(--puzzle-bg);padding:0}
+table.grid.crossword td.block{background:transparent}
+table.grid.crossword td.block::after{content:'';position:absolute;inset:0;background:repeating-linear-gradient(45deg,rgba(0,0,0,.45),rgba(0,0,0,.45) 6px,transparent 6px,transparent 12px);opacity:.35}
 table.grid.crossword td .num{position:absolute;left:2px;top:1px;font-size:11px;font-weight:700;color:#111}
-table.grid.crossword td .letter{display:block;font-size:18px;line-height:var(--cell);color:#111}
+table.grid.crossword td input{width:100%;height:100%;border:none;background:transparent;text-align:center;font-size:18px;font-weight:700;text-transform:uppercase;color:#111;outline:none;padding:0;margin:0}
+table.grid.crossword td input.correct{color:#0b6e2f}
+table.grid.crossword td input.incorrect{color:#b00020}
 .clues{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:12px}
 .clues h3{margin:0 0 6px}
 .clues ol{margin:0;padding-left:20px}
